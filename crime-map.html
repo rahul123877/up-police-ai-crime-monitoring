@@ -2,53 +2,31 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crime Heat Map</title>
 
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
     <div class="map-container">
-
         <h1>🗺️ Crime Heat Map</h1>
 
         <div class="map-box">
-
-            <h2>Google Map Area</h2>
-
-            <p>📍 Lucknow City Crime Heat Map</p>
-
-            <div class="fake-map">
-
-                <div class="red"></div>
-
-                <div class="yellow"></div>
-
-                <div class="green"></div>
-
-            </div>
-
+            <h2>Live Crime Locations</h2>
+            <input type="number" id="latitude" placeholder="Latitude" required>
+            <input type="number" id="longitude" placeholder="Longitude" required>
+            <div id="map" style="height:500px; width:100%; border-radius:15px;"></div>
         </div>
-
-        <div class="legend">
-
-            <h3>Map Legend</h3>
-
-            <p>🔴 High Crime Area</p>
-
-            <p>🟡 Medium Crime Area</p>
-
-            <p>🟢 Safe Area</p>
-
-        </div>
-
     </div>
-    <script src="app.js"></script>
+
+    <script type="module" src="map.js"></script>
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAP_KEY&callback=initMap">
+    </script>
+
 </body>
 
 </html>

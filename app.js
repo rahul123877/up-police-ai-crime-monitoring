@@ -171,3 +171,533 @@ if (reportForm) {
     });
 
 }
+import { auth } from "./firebase.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+// ===============================
+// Login Check
+// ===============================
+
+if (window.location.pathname.includes("dashboard.html")) {
+
+    onAuthStateChanged(auth, (user) => {
+
+        if (!user) {
+
+            window.location = "login.html";
+
+        }
+
+    });
+
+}
+const logout = document.getElementById("logoutBtn");
+
+if (logout) {
+
+    logout.addEventListener("click", async () => {
+
+        await signOut(auth);
+
+        alert("Logout Successful");
+
+        window.location = "login.html";
+
+    });
+
+}
+function liveSearch() {
+    let input = document.getElementById("searchBox").value.toLowerCase();
+    let table = document.querySelector("table");
+    let tr = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < tr.length; i++) {
+        let text = tr[i].innerText.toLowerCase();
+
+        if (text.includes(input)) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+}
+import { db } from "./firebase.js";
+import {
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const crimeForm = document.getElementById("crimeForm");
+
+if (crimeForm) {
+
+    crimeForm.addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const crime = document.getElementById("crimeType").value;
+        const location = document.getElementById("location").value;
+
+        await addDoc(collection(db, "reports"), {
+            name,
+            crime,
+            location,
+            time: new Date()
+        });
+
+        alert("Report Submitted");
+
+        crimeForm.reset();
+
+    });
+
+}
+function predictCrime() {
+
+    const level = document.getElementById("crimeLevel").value;
+
+    const result = document.getElementById("result");
+
+    if (level === "high") {
+        result.innerHTML = "⚠ High Crime Risk Area";
+    }
+    else if (level === "medium") {
+        result.innerHTML = "⚡ Medium Risk Area";
+    }
+    else {
+        result.innerHTML = "✅ Safe Area";
+    }
+
+}
+const ctx = document.getElementById("crimeChart");
+
+if (ctx) {
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Theft", "Murder", "Cyber", "Kidnap"],
+            datasets: [{
+                label: "Crime Reports",
+                data: [120, 40, 90, 30]
+            }]
+        }
+    });
+
+}
+function sendMessage(async function sendMessage() {
+
+    const input = document.getElementById("userInput").value;
+
+    const chatBox = document.getElementById("chatBox");
+
+    chatBox.innerHTML += `
+<div class="message user">${input}</div>
+`;
+
+    const response = await fetch(
+        "https://api.openai.com/v1/chat/completions",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer YOUR_OPENAI_API_KEY"
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                messages: [
+                    {
+                        role: "system",
+                        content: "You are an AI Police Crime Assistant."
+                    },
+                    {
+                        role: "user",
+                        content: input
+                    }
+                ]
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    const reply = data.choices[0].message.content;
+
+    chatBox.innerHTML += `
+<div class="message ai">${reply}</div>
+`;
+
+    document.getElementById("userInput").value = "";
+
+}) {
+
+    let input = document.getElementById("userInput").value;
+    let chatBox = document.getElementById("chatBox");
+
+    chatBox.innerHTML += `<div class="message user">${input}</div>`;
+
+    let reply = "I am AI Police Assistant";
+
+    if (input.toLowerCase().includes("crime")) {
+        reply = "Please report crime immediately.";
+    }
+
+    chatBox.innerHTML += `<div class="message ai">${reply}</div>`;
+
+    document.getElementById("userInput").value = "";
+
+}
+function initMap() {
+
+    const center = {
+        lat: 26.8467,
+        lng: 80.9462
+    };
+
+    const map = new google.maps.Map(
+        document.getElementById("map"),
+        {
+            zoom: 8,
+            center: center
+        }
+    );
+
+    const crimes = [
+        { lat: 26.8467, lng: 80.9462 },
+        { lat: 26.4499, lng: 80.3319 },
+        { lat: 28.5355, lng: 77.3910 }
+    ];
+
+    crimes.forEach((crime) => {
+
+        new google.maps.Marker({
+            position: crime,
+            map: map,
+            title: "Crime Area"
+        });
+
+    });
+
+}
+import { db } from "./firebase.js";
+
+import {
+    collection,
+    onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const reportTable = document.getElementById("reportTable");
+
+if (reportTable) {
+
+    onSnapshot(collection(db, "reports"), (snapshot) => {
+
+        reportTable.innerHTML = "";
+
+        snapshot.forEach((doc) => {
+
+            let data = doc.data();
+
+            reportTable.innerHTML += `
+<tr>
+<td>${data.name}</td>
+<td>${data.crime}</td>
+<td>${data.location}</td>
+<td>${new Date(data.time.seconds * 1000).toLocaleString()}</td>
+</tr>
+`;
+
+        });
+
+    });
+
+}
+import {
+    doc,
+    deleteDoc,
+    updateDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { storage } from "./firebase.js";
+
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+const criminalList = document.getElementById("criminalList");
+
+if (criminalList) {
+
+    onSnapshot(collection(db, "criminals"), (snapshot) => {
+
+        criminalList.innerHTML = "";
+
+        snapshot.forEach((doc) => {
+
+            let data = doc.data();
+
+            criminalList.innerHTML += `
+<div class="suspect-card">
+<img src="${data.image}">
+<h2>${data.name}</h2>
+<p>${data.crime}</p>
+</div>
+`;
+
+        });
+
+    });
+
+}
+const criminalForm = document.getElementById("criminalForm");
+
+if (criminalForm) {
+
+    criminalForm.addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+        const name = document.getElementById("criminalName").value;
+        const crime = document.getElementById("criminalCrime").value;
+        const image = document.getElementById("criminalImage").files[0];
+
+        const storageRef = ref(storage, "criminals/" + image.name);
+
+        await uploadBytes(storageRef, image);
+
+        const imageURL = await getDownloadURL(storageRef);
+
+        await addDoc(collection(db, "criminals"), {
+            name,
+            crime,
+            image: imageURL
+        });
+
+        alert("Criminal Added");
+
+        criminalForm.reset();
+
+    });
+
+}
+const sosBtn = document.getElementById("sosBtn");
+
+if (sosBtn) {
+
+    sosBtn.addEventListener("click", () => {
+
+        navigator.geolocation.getCurrentPosition(async (position) => {
+
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            await addDoc(collection(db, "sos"), {
+                latitude: lat,
+                longitude: lng,
+                time: new Date(),
+                status: "Emergency"
+            });
+
+            document.getElementById("sosStatus").innerHTML =
+                "🚨 SOS Sent Successfully";
+
+        });
+
+    });
+
+}
+const sosTable = document.getElementById("sosTable");
+
+if (sosTable) {
+
+    onSnapshot(collection(db, "sos"), (snapshot) => {
+
+        sosTable.innerHTML = "";
+
+        snapshot.forEach((doc) => {
+
+            let data = doc.data();
+
+            sosTable.innerHTML += `
+<tr>
+<td>${data.latitude}</td>
+<td>${data.longitude}</td>
+<td>${data.status}</td>
+</tr>
+`;
+
+        });
+
+    });
+
+}
+async function sendMessage() {
+
+    const input = document.getElementById("userInput").value;
+
+    const chatBox = document.getElementById("chatBox");
+
+    chatBox.innerHTML += `
+<div class="message user">${input}</div>
+`;
+
+    const response = await fetch(
+        "https://api.openai.com/v1/chat/completions",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer YOUR_OPENAI_API_KEY"
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                messages: [
+                    {
+                        role: "system",
+                        content: "You are an AI Police Crime Assistant."
+                    },
+                    {
+                        role: "user",
+                        content: input
+                    }
+                ]
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    const reply = data.choices[0].message.content;
+
+    chatBox.innerHTML += `
+<div class="message ai">${reply}</div>
+`;
+
+    document.getElementById("userInput").value = "";
+
+}
+const crimeChart = document.getElementById("crimeTypeChart");
+
+if (crimeChart) {
+
+    new Chart(crimeChart, {
+        type: "pie",
+        data: {
+            labels: ["Theft", "Robbery", "Murder", "Cyber Crime"],
+            datasets: [{
+                data: [40, 25, 15, 20]
+            }]
+        }
+    });
+
+}
+const caseChart = document.getElementById("caseStatusChart");
+
+if (caseChart) {
+
+    new Chart(caseChart, {
+        type: "doughnut",
+        data: {
+            labels: ["Solved", "Pending"],
+            datasets: [{
+                data: [70, 30]
+            }]
+        }
+    });
+
+}
+const monthlyChart = document.getElementById("monthlyCrimeChart");
+
+if (monthlyChart) {
+
+    new Chart(monthlyChart, {
+        type: "line",
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [{
+                label: "Crime Reports",
+                data: [10, 15, 20, 12, 30, 18]
+            }]
+        }
+    });
+
+} async function loadDashboard() {
+    const querySnapshot = await getDocs(collection(db, "crimeReports"));
+
+    let total = querySnapshot.size;
+    let solved = 0;
+    let pending = 0;
+
+    allCrimes = [];
+
+    const table = document.getElementById("crimeTable");
+    table.innerHTML = "";
+
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+
+        allCrimes.push({
+            id: doc.id,
+            ...data
+        });
+
+        if (data.status === "Solved") solved++;
+        else pending++;
+
+        table.innerHTML += `
+            <tr>
+                <td>${doc.id}</td>
+                <td>${data.crimeType}</td>
+                <td>${data.location}</td>
+                <td>${data.status}</td>
+            </tr>
+        `;
+    });
+
+    document.getElementById("totalCrime").innerText = total;
+    document.getElementById("solvedCase").innerText = solved;
+    document.getElementById("pendingCase").innerText = pending;
+    document.getElementById("aiAlert").innerText = pending;
+}
+window.liveSearch = function () {
+    const searchValue = document
+        .getElementById("searchBox")
+        .value
+        .toLowerCase();
+
+    const table = document.getElementById("crimeTable");
+    table.innerHTML = "";
+
+    const filtered = allCrimes.filter(crime =>
+        crime.crimeType.toLowerCase().includes(searchValue) ||
+        crime.location.toLowerCase().includes(searchValue) ||
+        crime.id.toLowerCase().includes(searchValue)
+    );
+
+    filtered.forEach(crime => {
+        table.innerHTML += `
+            <tr>
+                <td>${crime.id}</td>
+                <td>${crime.crimeType}</td>
+                <td>${crime.location}</td>
+                <td>${crime.status}</td>
+            </tr>
+        `;
+    });
+};
+await addDoc(collection(db, "crimeReports"), {
+    fullName,
+    mobile,
+    email,
+    crimeType,
+    location,
+    description,
+    latitude,
+    longitude,
+    status: "Pending",
+    createdAt: new Date()
+});
