@@ -85,6 +85,7 @@
         <div class="main">
 
             <button id="themeBtn" class="btn">
+                <h3 id="welcomeUser"></h3>
                 🌙 Dark Mode
             </button>
 
@@ -94,6 +95,40 @@
             </h1>
 
             <!-- Dashboard Cards -->
+            <h2>Weather</h2>
+
+            <div class="dash-card">
+
+                <i class="fa-solid fa-cloud-sun"></i>
+
+                <h2>31°C</h2>
+
+                <p>Lucknow</p>
+
+            </div>
+            <div class="cards">
+
+                <a href="report.html" class="btn">
+                    <i class="fa-solid fa-file-circle-plus"></i>
+                    New FIR
+                </a>
+
+                <a href="crime-map.html" class="btn">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    Live Map
+                </a>
+
+                <a href="prediction.html" class="btn">
+                    <i class="fa-solid fa-brain"></i>
+                    AI Prediction
+                </a>
+
+                <a href="cctv.html" class="btn">
+                    <i class="fa-solid fa-video"></i>
+                    CCTV
+                </a>
+
+            </div>
             <div class="cards">
 
                 <div class="dash-card">
@@ -172,7 +207,31 @@
                     </tr>
                 </tbody>
             </table>
+            <h2>Most Wanted Criminal</h2>
 
+            <div class="suspect-container">
+
+                <div class="suspect-card">
+
+                    <img src="images/criminal1.jpg">
+
+                    <h3>Unknown</h3>
+
+                    <p>Reward ₹50,000</p>
+
+                </div>
+
+                <div class="suspect-card">
+
+                    <img src="images/criminal2.jpg">
+
+                    <h3>Unknown</h3>
+
+                    <p>Reward ₹1,00,000</p>
+
+                </div>
+
+            </div>
             <!-- Crime Analytics -->
             <h2>Crime Analytics</h2>
             <div class="chart-box">
@@ -216,6 +275,18 @@
     </div>
 
     <script type="module" src="dashboard.js"></script>
+
+</body>
+
+</html>
+<footer>
+    <p>© 2026 AI Crime Monitoring System | Developed by Rahul</p>
+</footer>
+
+</div>
+</div>
+
+<script type="module" src="dashboard.js"></script>
 
 </body>
 

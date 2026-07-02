@@ -120,3 +120,99 @@
 </body>
 
 </html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIR Management</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>FIR Management System</h1>
+
+            <a href="dashboard.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </a>
+        </header>
+
+        <section class="fir-form">
+
+            <h2>Register New FIR</h2>
+
+            <form>
+
+                <input type="text" placeholder="Full Name" required>
+
+                <input type="text" placeholder="Mobile Number" required>
+
+                <select required>
+                    <option>Select Crime Type</option>
+                    <option>Theft</option>
+                    <option>Assault</option>
+                    <option>Robbery</option>
+                    <option>Cyber Crime</option>
+                    <option>Fraud</option>
+                </select>
+
+                <textarea placeholder="Incident Details" rows="5"></textarea>
+
+                <input type="text" placeholder="Location">
+
+                <button type="submit">Submit FIR</button>
+
+            </form>
+
+        </section>
+
+        <section class="fir-status">
+
+            <h2>FIR Status</h2>
+
+            <div class="status-card">
+                <p>FIR #205 - Under Investigation</p>
+            </div>
+
+            <div class="status-card">
+                <p>FIR #206 - Patrol Assigned</p>
+            </div>
+
+            <div class="status-card">
+                <p>FIR #207 - Case Closed</p>
+            </div>
+
+        </section>
+
+        <section class="record-section">
+
+            <h2>Recent FIR Records</h2>
+
+            <div class="record-card">
+                <p>Case: Theft | Area: Hazratganj</p>
+            </div>
+
+            <div class="record-card">
+                <p>Case: Fraud | Area: Aliganj</p>
+            </div>
+
+            <div class="record-card">
+                <p>Case: Cyber Crime | Area: Gomti Nagar</p>
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
