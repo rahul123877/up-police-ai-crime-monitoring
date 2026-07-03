@@ -1,84 +1,610 @@
-<div class="top-bar">
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="top-left">
+<head>
 
-        <h1>
-            <i class="fa-solid fa-shield-halved"></i>
-            AI Crime Monitoring Dashboard
-        </h1>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <p id="welcomeUser"></p>
+    <title>AI Crime Monitoring Dashboard</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+            <div>
+
+                <div class="logo-section">
+
+                    <img src="images/logo.png" alt="Logo">
+
+                    <div>
+
+                        <h2>AI CRIME</h2>
+
+                        <small>Monitoring System</small>
+
+                    </div>
+
+                </div>
+
+                <ul>
+
+                    <li>
+                        <a href="#" class="active">
+                            <i class="fa-solid fa-house"></i>
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="report.html">
+                            <i class="fa-solid fa-file-circle-plus"></i>
+                            New FIR
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="crime-map.html">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            Live Map
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="prediction.html">
+                            <i class="fa-solid fa-brain"></i>
+                            AI Prediction
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="cctv.html">
+                            <i class="fa-solid fa-video"></i>
+                            CCTV
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa-solid fa-chart-line"></i>
+                            Analytics
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa-solid fa-users"></i>
+                            Officers
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa-solid fa-gear"></i>
+                            Settings
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="emergency-box">
+
+                <i class="fa-solid fa-phone-volume"></i>
+
+                <div>
+
+                    <p>Emergency</p>
+
+                    <h3>Dial 112</h3>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+        <!-- ================= MAIN ================= -->
+
+        <main class="main">
+
+            <div class="top-bar">
+
+                <div class="top-left">
+
+                    <h1>
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        AI Crime Monitoring Dashboard
+
+                    </h1>
+
+                    <p id="welcomeUser">
+                        Welcome Officer
+                    </p>
+
+                </div>
+
+                <div class="top-right">
+
+                    <div class="weather-card">
+
+                        <i class="fa-solid fa-cloud-sun"></i>
+
+                        31°C • Lucknow
+
+                    </div>
+
+                    <div class="datetime">
+
+                        <h4 id="date"></h4>
+
+                        <h4 id="time"></h4>
+
+                    </div>
+
+                    <button id="themeBtn" class="btn">
+
+                        🌙
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- ================= TOP STATS ================= -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="icon blue">
+
+                        <i class="fa-solid fa-scale-balanced"></i>
+
+                    </div>
+
+                    <div>
+
+                        <p>Total Crimes</p>
+
+                        <h2 id="totalCrime">1250</h2>
+
+                        <span class="trend red">+12%</span>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="icon green">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                    </div>
+
+                    <div>
+
+                        <p>Solved Cases</p>
+
+                        <h2 id="solvedCase">1098</h2>
+
+                        <span class="trend green">88%</span>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="icon yellow">
+
+                        <i class="fa-solid fa-hourglass-half"></i>
+
+                    </div>
+
+                    <div>
+
+                        <p>Pending Cases</p>
+
+                        <h2 id="pendingCase">152</h2>
+
+                        <span class="trend yellow">Open</span>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="icon red">
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    </div>
+
+                    <div>
+
+                        <p>AI Alerts</p>
+
+                        <h2 id="aiAlert">18</h2>
+
+                        <span class="trend red">High</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- ================= MIDDLE SECTION ================= -->
+
+            <div class="middle-grid">
+
+                <!-- Live Crime Map -->
+
+                <div class="card map-card">
+
+                    <h3>
+                        Live Crime Map
+                        <span class="badge green">LIVE</span>
+                    </h3>
+
+                    <div class="map-placeholder">
+
+                        <i class="fa-solid fa-map-location-dot"></i>
+
+                        <h2>Interactive Crime Map</h2>
+
+                        <p>
+                            Leaflet / Google Map Integration
+                        </p>
+
+                        <button class="btn">
+                            Open Full Map
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- AI Prediction -->
+
+                <div class="card prediction-card">
+
+                    <h3>AI Prediction</h3>
+
+                    <div class="prediction-item">
+
+                        <h4>Hazratganj</h4>
+
+                        <div class="progress">
+                            <div class="progress-fill red" style="width:90%"></div>
+                        </div>
+
+                        <small>High Risk</small>
+
+                    </div>
+
+                    <div class="prediction-item">
+
+                        <h4>Alambagh</h4>
+
+                        <div class="progress">
+                            <div class="progress-fill yellow" style="width:65%"></div>
+                        </div>
+
+                        <small>Medium Risk</small>
+
+                    </div>
+
+                    <div class="prediction-item">
+
+                        <h4>Gomti Nagar</h4>
+
+                        <div class="progress">
+                            <div class="progress-fill green" style="width:30%"></div>
+                        </div>
+
+                        <small>Low Risk</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================= LOWER SECTION ================= -->
+
+            <div class="middle-grid">
+
+                <!-- CCTV -->
+
+                <div class="card">
+
+                    <h3>
+
+                        Live CCTV
+
+                        <span class="badge green">
+                            LIVE
+                        </span>
+
+                    </h3>
+
+                    <div class="cctv-grid">
+
+                        <div class="camera">
+
+                            <i class="fa-solid fa-video"></i>
+
+                            <p>Camera 01</p>
+
+                        </div>
+
+                        <div class="camera">
+
+                            <i class="fa-solid fa-video"></i>
+
+                            <p>Camera 02</p>
+
+                        </div>
+
+                        <div class="camera">
+
+                            <i class="fa-solid fa-video"></i>
+
+                            <p>Camera 03</p>
+
+                        </div>
+
+                        <div class="camera">
+
+                            <i class="fa-solid fa-video"></i>
+
+                            <p>Camera 04</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Recent FIR -->
+
+                <div class="card">
+
+                    <h3>Recent FIR</h3>
+
+                    <table>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Crime</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>#1021</td>
+
+                            <td>Theft</td>
+
+                            <td style="color:#10B981;">
+                                Solved
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>#1022</td>
+
+                            <td>Robbery</td>
+
+                            <td style="color:#F59E0B;">
+                                Pending
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>#1023</td>
+
+                            <td>Cyber Fraud</td>
+
+                            <td style="color:#EF4444;">
+                                High Alert
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>#1024</td>
+
+                            <td>Missing</td>
+
+                            <td style="color:#10B981;">
+                                Closed
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+            <!-- ================= ANALYTICS + QUICK ACTION ================= -->
+
+            <div class="middle-grid">
+
+                <!-- Crime Analytics -->
+
+                <div class="card">
+
+                    <h3>
+
+                        Crime Analytics
+
+                        <button class="btn">
+                            Monthly
+                        </button>
+
+                    </h3>
+
+                    <canvas id="crimeChart" height="120"></canvas>
+
+                </div>
+
+                <!-- Quick Actions -->
+
+                <div class="card">
+
+                    <h3>Quick Actions</h3>
+
+                    <div class="quick-actions">
+
+                        <a href="report.html" class="btn">
+                            <i class="fa-solid fa-file-circle-plus"></i><br>
+                            New FIR
+                        </a>
+
+                        <a href="crime-map.html" class="btn">
+                            <i class="fa-solid fa-map-location-dot"></i><br>
+                            Live Map
+                        </a>
+
+                        <a href="prediction.html" class="btn">
+                            <i class="fa-solid fa-brain"></i><br>
+                            AI Prediction
+                        </a>
+
+                        <a href="cctv.html" class="btn">
+                            <i class="fa-solid fa-video"></i><br>
+                            CCTV
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================= OFFICERS + NOTIFICATIONS ================= -->
+
+            <div class="middle-grid">
+
+                <!-- Officers -->
+
+                <div class="card">
+
+                    <h3>Active Officers</h3>
+
+                    <table>
+
+                        <tr>
+
+                            <th>Name</th>
+
+                            <th>Station</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Rahul Verma</td>
+
+                            <td>Lucknow</td>
+
+                            <td style="color:#10B981;">Online</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Raj Singh</td>
+
+                            <td>Ayodhya</td>
+
+                            <td style="color:#10B981;">Patrolling</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Amit Kumar</td>
+
+                            <td>Barabanki</td>
+
+                            <td style="color:#F59E0B;">Investigation</td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <!-- Notifications -->
+
+                <div class="card">
+
+                    <h3>Notifications</h3>
+
+                    <ul class="notification-list">
+
+                        <li>🚨 High Risk Alert Generated</li>
+
+                        <li>📍 Crime Report Received</li>
+
+                        <li>👮 New Officer Logged In</li>
+
+                        <li>📹 CCTV Camera Connected</li>
+
+                        <li>🧠 AI Prediction Updated</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </main>
 
     </div>
 
-    <div class="top-right">
+    <!-- Chart JS -->
 
-        <button id="themeBtn" class="btn">
-            🌙 Dark Mode
-        </button>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <div class="datetime">
-            <h4 id="date"></h4>
-            <h4 id="time"></h4>
-        </div>
+    <!-- Your Script -->
 
-    </div>
+    <script src="script.js"></script>
 
-</div>
+</body>
 
-<div class="cards">
-
-    <div class="dash-card weather-card">
-        <i class="fa-solid fa-cloud-sun"></i>
-        <h2>31°C</h2>
-        <p>Lucknow</p>
-    </div>
-
-    <a href="report.html" class="btn">
-        <i class="fa-solid fa-file-circle-plus"></i><br>
-        New FIR
-    </a>
-
-    <a href="crime-map.html" class="btn">
-        <i class="fa-solid fa-map-location-dot"></i><br>
-        Live Map
-    </a>
-
-    <a href="prediction.html" class="btn">
-        <i class="fa-solid fa-brain"></i><br>
-        AI Prediction
-    </a>
-
-    <a href="cctv.html" class="btn">
-        <i class="fa-solid fa-video"></i><br>
-        CCTV
-    </a>
-
-    <div class="cards stats-row">
-
-        <div class="dash-card">
-            <i class="fa-solid fa-scale-balanced"></i>
-            <h2 id="totalCrime">0</h2>
-            <p>Total Crimes</p>
-        </div>
-
-        <div class="dash-card">
-            <i class="fa-solid fa-circle-check"></i>
-            <h2 id="solvedCase">0</h2>
-            <p>Solved Cases</p>
-        </div>
-
-        <div class="dash-card">
-            <i class="fa-solid fa-hourglass-half"></i>
-            <h2 id="pendingCase">0</h2>
-            <p>Pending Cases</p>
-        </div>
-
-        <div class="dash-card">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <h2 id="aiAlert">0</h2>
-            <p>AI Alerts</p>
-        </div>
-
-
-    </div>
+</html>
