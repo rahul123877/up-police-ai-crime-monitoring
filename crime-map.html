@@ -7,41 +7,7 @@
     <title>Crime Heat Map</title>
 
     <link rel="stylesheet" href="styles.css" />
-</head>
-
-<body>
-
-    <div class="map-container">
-        <h1>🗺️ Crime Heat Map</h1>
-
-        <div class="map-box">
-            <h2>Live Crime Locations</h2>
-            <input type="number" id="latitude" placeholder="Latitude" required>
-            <input type="number" id="longitude" placeholder="Longitude" required>
-            <div id="map" style="height:500px; width:100%; border-radius:15px;"></div>
-        </div>
-    </div>
-
-    <script type="module" src="map.js"></script>
-
-    <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAP_KEY&callback=initMap">
-    </script>
-
-</body>
-
-</html>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crime Map</title>
-
-    <link rel="stylesheet" href="style.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 
 <body>
@@ -49,7 +15,7 @@
     <div class="container">
 
         <header>
-            <h1>Live Crime Map</h1>
+            <h1>🗺️ Crime Heat Map</h1>
 
             <a href="dashboard.html" class="back-btn">
                 <i class="fa-solid fa-arrow-left"></i> Back
@@ -59,21 +25,13 @@
         <section class="map-section">
 
             <div class="map-box">
+                <h2>Live Crime Locations</h2>
 
-                <img src="images/map.jpg" alt="Crime Map">
+                <input type="number" id="latitude" placeholder="Latitude" required>
 
-                <div class="map-point point1">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
+                <input type="number" id="longitude" placeholder="Longitude" required>
 
-                <div class="map-point point2">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
-
-                <div class="map-point point3">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
-
+                <div id="map" style="height:500px; width:100%; border-radius:15px;"></div>
             </div>
 
         </section>
@@ -115,6 +73,10 @@
         </section>
 
     </div>
+
+    <script type="module" src="map.js"></script>
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAP_KEY&callback=initMap"></script>
 
 </body>
 

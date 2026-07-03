@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. GOOGLE FONTS & UNIVERSAL STYLES
+   1. GOOGLE FONTS, VARIABLES & UNIVERSAL RESET
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
@@ -7,21 +7,50 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', Helvetica, sans-serif;
+    font-family: 'Poppins', Arial, sans-serif;
 }
 
 html {
     scroll-behavior: smooth;
 }
 
+/* Base Body & Dark Theme */
 body {
     background: #07111f;
     color: #fff;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* Selection Color */
+::selection {
+    background: #00d4ff;
+    color: #1f0719;
 }
 
 /* ==========================================================================
-   2. NAVBAR
+   2. FULL PAGE LOGO WATERMARK (FIXED SYNTAX)
+   ========================================================================== */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: url("image/up-police-ai.png");
+    background-repeat: repeat;
+    background-size: 180px;
+    opacity: 0.04;
+    transform: rotate(-20deg) scale(1.25);
+    transform-origin: center;
+}
+
+section {
+    animation: fadeIn .8s ease;
+}
+
+/* ==========================================================================
+   3. NAVBAR (GLASSMORPHISM)
    ========================================================================== */
 .navbar {
     position: fixed;
@@ -44,22 +73,26 @@ body {
     gap: 12px;
     font-size: 24px;
     font-weight: 700;
-    color: #ffd54f;
+    color: #00d9ff;
+    /* Cyber Cyan Logo Text */
     letter-spacing: 1px;
 }
 
 .logo img {
     width: 55px;
+    height: auto;
 }
 
-.nav-links {
+.nav-links,
+.navbar ul {
     display: flex;
     list-style: none;
     gap: 28px;
     align-items: center;
 }
 
-.nav-links a {
+.nav-links a,
+.navbar a {
     color: white;
     text-decoration: none;
     transition: .3s;
@@ -67,12 +100,14 @@ body {
     font-size: 17px;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.navbar a:hover {
     color: #ffd54f;
+    /* Gold on Hover */
 }
 
 /* ==========================================================================
-   3. HERO SECTION
+   4. HERO SECTION (UP POLICE HQ BG FIXED)
    ========================================================================== */
 .hero {
     position: relative;
@@ -84,15 +119,13 @@ body {
     text-align: center;
     overflow: hidden;
     padding-top: 80px;
-    /* Navbar space */
 }
 
-/* UP Police HQ Background */
 .hero::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(rgba(2, 15, 35, .78), rgba(2, 15, 35, .78)), url("images/up-police-hq.jpg");
+    background: linear-gradient(rgba(2, 15, 35, .78), rgba(2, 15, 35, .78)), url("image/up-police-hq.png");
     background-size: cover;
     background-position: center;
     filter: blur(3px);
@@ -100,13 +133,12 @@ body {
     z-index: -2;
 }
 
-/* UP Police Logo Watermark */
 .hero::after {
     content: "";
     position: absolute;
-    width: 420px;
-    height: 420px;
-    background: url("images/up-police-logo.png");
+    width: 140px;
+    height: 140px;
+    background: url("image/up-police-logo.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -114,9 +146,12 @@ body {
     z-index: -1;
 }
 
-.hero-content {
+.hero-content,
+.overlay {
     max-width: 900px;
     padding: 20px;
+    color: white;
+    z-index: 10;
     animation: fadeUp 1.2s ease;
 }
 
@@ -129,6 +164,7 @@ body {
     font-size: 58px;
     margin-bottom: 15px;
     font-weight: 700;
+    text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.6);
 }
 
 .hero h3 {
@@ -144,28 +180,39 @@ body {
 }
 
 /* Buttons */
-.hero-btns {
+.hero-btns,
+.buttons,
+.action-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
     flex-wrap: wrap;
+    gap: 20px;
 }
 
-.btn {
+.btn,
+button,
+.back-btn {
     display: inline-block;
     padding: 14px 34px;
-    border-radius: 50px;
-    background: #ffd54f;
+    border-radius: 8px;
+    background: #00d4ff;
+    /* Cyber Cyan Button */
     color: #000;
     text-decoration: none;
     font-weight: 600;
-    transition: .3s;
+    border: none;
+    cursor: pointer;
+    transition: .3s ease;
+    font-size: 16px;
 }
 
-.btn:hover {
+.btn:hover,
+button:hover,
+.back-btn:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 0 20px #ffd54f;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
     background: #fff;
+    color: #000;
 }
 
 .btn-outline {
@@ -177,184 +224,596 @@ body {
 .btn-outline:hover {
     background: white;
     color: black;
+    box-shadow: 0 0 15px white;
 }
 
 /* ==========================================================================
-   4. LIVE STATISTICS
+   5. UNIFIED GRID SYSTEM FOR ALL CARDS
    ========================================================================== */
-.stats {
-    padding: 100px 8%;
-    background: #0d1b2a;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 50px;
-    color: #ffd54f;
-    font-weight: 600;
-}
-
-.stats-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 30px;
-}
-
-.stat-card {
-    background: rgba(255, 255, 255, .08);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, .15);
-    border-radius: 20px;
-    padding: 35px;
-    text-align: center;
-    transition: .4s;
-}
-
-.stat-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 0 25px rgba(255, 213, 79, .4);
-}
-
-.stat-card i {
-    font-size: 45px;
-    color: #ffd54f;
-    margin-bottom: 20px;
-}
-
-.stat-card h3 {
-    font-size: 42px;
-    margin-bottom: 10px;
-}
-
-.stat-card p {
-    font-size: 18px;
-    color: #ddd;
-}
-
-/* ==========================================================================
-   5. AI FEATURES
-   ========================================================================== */
-.features {
-    padding: 100px 8%;
+.stats,
+.features,
+.updates,
+.emergency,
+.suspects,
+.alerts,
+.cctv,
+.fir,
+.patrol,
+.stations,
+.admin,
+.notifications,
+.evidence,
+.case-management,
+.roster,
+.gps {
+    padding: 80px 8%;
     background: #07111f;
 }
 
-.feature-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.feature-card {
-    background: rgba(255, 255, 255, .07);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
-    padding: 35px;
-    text-align: center;
-    transition: .4s;
-    border: 1px solid rgba(255, 255, 255, .12);
-}
-
-.feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 30px rgba(255, 213, 79, .35);
-}
-
-.feature-card i {
-    font-size: 50px;
-    color: #ffd54f;
-    margin-bottom: 20px;
-}
-
-.feature-card h3 {
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-.feature-card p {
-    color: #ddd;
-    line-height: 1.8;
-}
-
-/* ==========================================================================
-   6. LATEST AI ALERTS
-   ========================================================================== */
 .updates {
-    padding: 100px 8%;
     background: #10233f;
 }
 
-.updates-container {
+/* Slight variation for sections */
+.stats {
+    background: #0d1b2a;
+}
+
+.section-title,
+h1,
+.features h2,
+.emergency h2 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #ffd54f;
+    /* Gold Titles */
+    font-weight: 600;
+}
+
+/* Dynamic Grids */
+.stats-container,
+.feature-container,
+.updates-container,
+.cards,
+.suspect-container,
+.camera-grid,
+.vehicle-container,
+.station-grid,
+.admin-grid,
+.gps-cards,
+.evidence-grid,
+.emergency-grid,
+.dashboard,
+.suspect-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
 }
 
-.update-card {
-    background: rgba(255, 255, 255, .08);
+/* Unified Card Styling */
+.stat-card,
+.feature-card,
+.update-card,
+.dash-card,
+.card,
+.report-card,
+.suspect-card,
+.camera-card,
+.vehicle-card,
+.station-card,
+.admin-card,
+.gps-card,
+.evidence-card,
+.emergency-card,
+.prediction-card,
+.hotspot-card,
+.track-card,
+.status-card,
+.record-card,
+.log-card,
+.user-card {
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, .15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 30px;
-    transition: .4s;
+    text-align: center;
+    transition: 0.4s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.update-card:hover {
+/* Card Hover Effect */
+.stat-card:hover,
+.feature-card:hover,
+.update-card:hover,
+.dash-card:hover,
+.card:hover,
+.report-card:hover,
+.suspect-card:hover,
+.camera-card:hover,
+.vehicle-card:hover,
+.station-card:hover,
+.admin-card:hover,
+.gps-card:hover,
+.evidence-card:hover,
+.emergency-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 0 25px rgba(255, 213, 79, .40);
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+    border-color: rgba(0, 212, 255, 0.5);
 }
 
-.update-card i {
+/* Card Icons */
+.stat-card i,
+.feature-card i,
+.update-card i,
+.vehicle-card i,
+.station-card i,
+.admin-card i,
+.gps-card i,
+.evidence-card i,
+.emergency-card i,
+.dash-card i,
+.prediction-card i {
     font-size: 45px;
-    color: #ff5252;
+    color: #00d4ff;
     margin-bottom: 20px;
 }
 
-.update-card h3 {
-    font-size: 24px;
+.update-card i,
+.emergency-card i {
+    color: #ff5252;
+}
+
+/* Red for alerts */
+.stat-card i {
+    color: #ffd54f;
+}
+
+/* Gold for stats */
+
+.stat-card h3,
+.card h2,
+.dash-card h3 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.feature-card h3,
+.update-card h3,
+.suspect-card h2 {
+    font-size: 22px;
     margin-bottom: 15px;
 }
 
+.stat-card p,
+.card p,
+.feature-card p,
 .update-card p {
-    color: #ddd;
-    line-height: 1.8;
+    color: #cbd5e1;
+    line-height: 1.6;
 }
 
 /* ==========================================================================
-   7. EMERGENCY SECTION
+   6. POLICE DASHBOARD SYSTEM (SIDEBAR & LAYOUT)
    ========================================================================== */
-.emergency {
-    padding: 100px 8%;
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #001f3f;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+    color: #00d4ff;
+    font-size: 24px;
+}
+
+.sidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar li {
+    margin: 10px 0;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #ffd54f;
+}
+
+.main {
+    flex: 1;
+    padding: 100px 30px 30px 30px;
+    margin-left: 250px;
+}
+
+.datetime {
+    display: flex;
+    justify-content: space-between;
+    background: #112240;
+    padding: 15px 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border-left: 4px solid #00d4ff;
+    font-size: 18px;
+}
+
+/* ==========================================================================
+   7. TABLES
+   ========================================================================== */
+table,
+.case-table,
+.roster-table,
+.emergency-table,
+.fir-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #112240;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table th,
+table td {
+    border: 1px solid #2a3b5c;
+    padding: 15px;
     text-align: center;
-    background: #07111f;
 }
 
-.emergency h2 {
-    font-size: 42px;
+table th {
+    background: #003566;
+    color: #00d4ff;
+    font-weight: 600;
+}
+
+table tr:hover {
+    background: #16324f;
+    transition: .3s;
+}
+
+/* Table Status Colors */
+.pending {
+    color: #ff9800;
+    font-weight: bold;
+}
+
+.progress {
+    color: #ffd54f;
+    font-weight: bold;
+}
+
+.solved,
+.success,
+.safe,
+.online {
+    color: #00ff99;
+    font-weight: bold;
+}
+
+.danger,
+.high,
+.offline {
     color: #ff4d4d;
-    margin-bottom: 15px;
+    font-weight: bold;
 }
 
-.emergency p {
-    color: #ddd;
-    margin-bottom: 35px;
+.warning {
+    color: #f9a825;
+    font-weight: bold;
 }
 
-.emergency-btns {
+/* ==========================================================================
+   8. FORMS & LOGIN SYSTEM
+   ========================================================================== */
+.login-container {
+    height: 100vh;
     display: flex;
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    align-items: center;
+    background: linear-gradient(135deg, #001f3f, #0d47a1);
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    background: #112240;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 212, 255, .3);
+}
+
+.login-box h1 {
+    margin-bottom: 30px;
+    color: #00d4ff;
+}
+
+.input-box {
+    background: #1a2d45;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+    border: 1px solid #334e68;
+}
+
+.input-box i {
+    color: #00d4ff;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.input-box input,
+.input-box select,
+.input-box textarea {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: transparent;
+    color: white;
+}
+
+.report-container,
+.prediction-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
+    background: #112240;
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid #2a4365;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input,
+select,
+textarea {
+    padding: 15px;
+    border: 1px solid #2a4365;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #1a2d45;
+    color: white;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
+textarea {
+    height: 150px;
+    resize: none;
 }
 
 /* ==========================================================================
-   8. FOOTER
+   9. CORE MODULES (MAP, CCTV, AI CHAT)
+   ========================================================================== */
+/* Suspects */
+.suspect-card img,
+.camera-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* AI Chatbot */
+.chat-box {
+    background: #112240;
+    padding: 20px;
+    border-radius: 15px;
+    height: 450px;
+    overflow-y: auto;
+}
+
+.message,
+.bot-message,
+.user-message {
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 10px;
+    max-width: 75%;
+}
+
+.ai,
+.bot-message {
+    background: #0d47a1;
+    color: white;
+}
+
+.user,
+.user-message {
+    background: #00d4ff;
+    color: black;
+    margin-left: auto;
+    text-align: right;
+}
+
+.chat-input {
+    display: flex;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+/* Map Fixed */
+.map-container,
+.map-section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+#map {
+    height: 500px;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .2);
+}
+
+.fake-map,
+.map-box {
+    position: relative;
+    height: 450px;
+    background: #dfe6e9;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.map-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.map-point,
+.red,
+.yellow,
+.green {
+    position: absolute;
+    border-radius: 50%;
+}
+
+/* Alerts */
+.alert {
+    padding: 20px;
+    border-radius: 10px;
+    margin: 15px 0;
+    border-left: 5px solid #ff4d4d;
+    background: rgba(255, 77, 77, 0.1);
+    color: white;
+}
+
+.prediction-result {
+    margin-top: 30px;
+    background: #0d1b2a;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid #ff5252;
+}
+
+/* CCTV Output */
+.camera-screen {
+    height: 220px;
+    background: #000;
+    color: #00ff00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-family: monospace;
+    border: 2px solid #00d4ff;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Profiles */
+.profile {
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-card {
+    background: #112240;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+.profile-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #00d4ff;
+    margin-bottom: 20px;
+}
+
+/* GPS Placeholder */
+.map-placeholder {
+    height: 350px;
+    background: #0b1320;
+    border: 2px dashed #00d4ff;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-placeholder i {
+    font-size: 80px;
+    color: #00d4ff;
+    margin-bottom: 20px;
+}
+
+/* Chart Placeholder */
+.chart-box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    color: black;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    height: 250px;
+}
+
+.bar {
+    width: 50px;
+    background: #2563eb;
+    border-radius: 8px 8px 0 0;
+}
+
+/* ==========================================================================
+   10. FOOTER & ANIMATIONS
    ========================================================================== */
 footer {
     background: #020812;
-    padding: 60px 20px;
+    padding: 50px 20px 30px;
     text-align: center;
+    border-top: 1px solid #112240;
 }
 
 .footer-logo {
@@ -384,7 +843,7 @@ footer {
 }
 
 .social-icons a:hover {
-    color: #ffd54f;
+    color: #00d4ff;
 }
 
 footer hr {
@@ -393,17 +852,28 @@ footer hr {
     border: .5px solid rgba(255, 255, 255, .15);
 }
 
-/* ==========================================================================
-   9. ANIMATIONS & CUSTOM SCROLLBAR
-   ========================================================================== */
-.scroll-down {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 30px;
-    color: #ffd54f;
-    animation: bounce 2s infinite;
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes bounce {
@@ -425,16 +895,14 @@ footer hr {
     }
 }
 
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(60px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    color: #ffd54f;
+    animation: bounce 2s infinite;
 }
 
 ::-webkit-scrollbar {
@@ -446,36 +914,73 @@ footer hr {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ffd54f;
+    background: #00d4ff;
     border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #ffca28;
+    background: #ffd54f;
 }
 
 /* ==========================================================================
-   10. RESPONSIVE DESIGN (MEDIA QUERIES)
+   11. LIGHT MODE OVERRIDES
    ========================================================================== */
-@media(max-width: 992px) {
+.light-mode {
+    background: #f5f5f5;
+    color: #111;
+}
+
+.light-mode .navbar {
+    background: #ffffff;
+}
+
+.light-mode .stat-card,
+.light-mode .feature-card,
+.light-mode .update-card,
+.light-mode .card,
+.light-mode .dash-card,
+.light-mode .report-card {
+    background: #ffffff;
+    color: #111;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-color: #ddd;
+}
+
+.light-mode table {
+    background: white;
+    color: black;
+}
+
+.light-mode th {
+    background: #00d4ff;
+    color: black;
+}
+
+/* ==========================================================================
+   12. RESPONSIVE DESIGN (MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .navbar {
+        padding: 18px 4%;
+    }
+
     .hero h1 {
         font-size: 42px;
     }
 
-    .hero p {
-        font-size: 18px;
+    .main {
+        margin-left: 0;
+        padding-top: 120px;
     }
 
-    .nav-links {
-        gap: 15px;
+    .sidebar {
+        display: none;
     }
 
-    .navbar {
-        padding: 18px 4%;
-    }
+    /* Hide fixed sidebar on mobile */
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
     .navbar {
         flex-direction: column;
         padding: 15px;
@@ -489,7 +994,7 @@ footer hr {
     }
 
     .hero {
-        padding: 120px 20px;
+        padding: 140px 20px 80px;
         height: auto;
     }
 
@@ -505,1084 +1010,30 @@ footer hr {
         font-size: 16px;
     }
 
-    .hero-btns {
+    .hero-btns,
+    .action-buttons,
+    .chat-input {
         flex-direction: column;
+        width: 100%;
         align-items: center;
     }
 
-    .btn {
-        width: 220px;
+    .btn,
+    button,
+    .back-btn {
+        width: 100%;
+        max-width: 300px;
         text-align: center;
     }
 
-    .section-title {
-        font-size: 28px;
-    }
-}
-
-@media(max-width: 480px) {
-    .logo span {
-        font-size: 18px;
-    }
-
-    .logo img {
-        width: 28px;
-    }
-
-    .up-logo {
-        width: 90px;
-    }
-
-    .hero h1 {
-        font-size: 28px;
-    }
-
-    .hero p {
-        font-size: 15px;
-    }
-}
-
-/* ==========================================
-   1. GLOBAL STYLES & RESET
-   ========================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #08192e;
-    color: white;
-    /* Default text color for dark theme */
-}
-
-::selection {
-    background: #00d4ff;
-    color: #081b29;
-}
-
-section {
-    animation: fadeIn .8s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Base Utility Classes */
-card h2 {
-    font-size: 35px;
-}
-
-.card p {
-    margin-top: 10px;
-}
-
-.btn {
-    display: inline-block;
-    padding: 15px 35px;
-    background: #00b7ff;
-    color: white;
-    font-size: 18px;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: .3s ease;
-}
-
-.btn:hover {
-    background: #0056d6;
-    transform: scale(1.05);
-}
-
-/* ==========================================
-   2. NAVIGATION BAR
-   ========================================== */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 50px;
-    background: rgba(0, 0, 0, .75);
-    z-index: 1000;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #00d9ff;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.logo img {
-    width: 60px;
-    height: 60px;
-}
-
-.navbar ul {
-    display: flex;
-    list-style: none;
-    gap: 35px;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    transition: .3s;
-}
-
-.navbar a:hover {
-    color: #00d9ff;
-}
-
-/* ==========================================
-   3. HERO SECTION (UP POLICE HQ BG FIXED)
-   ========================================== */
-.hero {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(rgba(4, 18, 45, 0.72), rgba(4, 18, 45, 0.72)), url("images/up-police-hq.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.overlay {
-    max-width: 900px;
-    text-align: center;
-    color: white;
-    z-index: 10;
-}
-
-.up-logo {
-    width: 120px;
-    margin-bottom: 20px;
-}
-
-.hero h1 {
-    font-size: 60px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-shadow: 3px 3px 12px black;
-}
-
-.hero p {
-    font-size: 24px;
-    margin: 20px 0 35px;
-}
-
-.hero-btns,
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-/* ==========================================
-   4. HOME FEATURES & UPDATES
-   ========================================== */
-.features {
-    padding: 70px;
-    text-align: center;
-}
-
-.features h2 {
-    font-size: 40px;
-    margin-bottom: 40px;
-}
-
-.feature-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-}
-
-.feature-card {
-    background: #112240;
-    padding: 30px;
-    border-radius: 15px;
-}
-
-.feature-card i {
-    font-size: 45px;
-    color: #00d4ff;
-    margin-bottom: 15px;
-}
-
-.updates {
-    padding: 70px;
-}
-
-.update-card {
-    background: #112240;
-    padding: 25px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-}
-
-/* ==========================================
-   5. POLICE DASHBOARD SYSTEM
-   ========================================== */
-.dashboard {
-    display: flex;
-}
-
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    background: #001f3f;
-    padding: 20px;
-    position: fixed;
-    /* Optional: keeps sidebar fixed while main content scrolls */
-}
-
-.sidebar h2 {
-    margin-bottom: 30px;
-    color: #00d4ff;
-}
-
-.sidebar ul {
-    list-style: none;
-}
-
-.sidebar li {
-    margin: 20px 0;
-}
-
-.sidebar a {
-    color: white;
-    text-decoration: none;
-}
-
-.main {
-    flex: 1;
-    padding: 30px;
-    margin-left: 250px;
-    /* Accounts for fixed sidebar */
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin: 30px 0;
-}
-
-.dash-card {
-    background: #112240;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-}
-
-.datetime {
-    display: flex;
-    justify-content: space-between;
-    background: #112240;
-    padding: 15px 25px;
-    border-radius: 10px;
-    margin: 20px;
-    font-size: 18px;
-}
-
-/* Data Tables */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table th,
-table td {
-    border: 1px solid #444;
-    padding: 15px;
-    text-align: center;
-}
-
-table th {
-    background: #003566;
-}
-
-table tr:hover {
-    background: #16324f;
-    transition: .3s;
-}
-
-/* ==========================================
-   6. LOGIN & FORMS SYSTEM
-   ========================================== */
-.login-container {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #001f3f, #0d47a1);
-}
-
-.login-box {
-    width: 400px;
-    background: #112240;
-    padding: 40px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 0 20px rgba(0, 212, 255, .3);
-}
-
-.login-box h1 {
-    margin-bottom: 30px;
-    color: #00d4ff;
-}
-
-.input-box {
-    background: white;
-    display: flex;
-    align-items: center;
-    padding: 12px;
-    margin: 20px 0;
-    border-radius: 8px;
-}
-
-.input-box i {
-    margin-right: 10px;
-    color: #003566;
-}
-
-.input-box input,
-.input-box select,
-.input-box textarea {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    outline: none;
-    border-radius: 8px;
-    margin-top: 8px;
-    margin-bottom: 15px;
-    font-size: 16px;
-    background: #1a2d45;
-    color: white;
-}
-
-.input-box input:focus,
-.input-box textarea:focus {
-    border: 2px solid #00d4ff;
-}
-
-/* Crime Report & Forms Container */
-.report-container,
-.prediction-container {
-    width: 70%;
-    margin: 40px auto;
-    background: #112240;
-    padding: 40px;
-    border-radius: 15px;
-}
-
-.report-container h1,
-.prediction-container h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #00d4ff;
-}
-
-.report-container form,
-.prediction-container form {
-    display: flex;
-    flex-direction: column;
-}
-
-.report-container input,
-.report-container select,
-.report-container textarea,
-.prediction-container select,
-.prediction-container input {
-    padding: 15px;
-    margin: 12px 0;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    background: #1a2d45;
-    color: white;
-}
-
-.report-container textarea {
-    height: 150px;
-    resize: none;
-}
-
-/* ==========================================
-   7. CORE MODULES (MAP, AI, WANTED, CCTV, ETC)
-   ========================================== */
-
-/* AI Prediction & Statuses */
-.prediction-result {
-    margin-top: 30px;
-    background: #0d1b2a;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.high,
-.danger {
-    color: red;
-    font-weight: bold;
-    background: #b71c1c;
-}
-
-.warning {
-    background: #f9a825;
-    color: black;
-}
-
-.safe,
-.success {
-    background: #2e7d32;
-    color: white;
-}
-
-/* Crime Heat Map */
-.map-container {
-    width: 90%;
-    margin: 40px auto;
-}
-
-.map-container h1 {
-    text-align: center;
-    color: #00d4ff;
-    margin-bottom: 30px;
-}
-
-.map-box {
-    background: #112240;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-}
-
-.fake-map {
-    height: 450px;
-    background: #dfe6e9;
-    margin-top: 20px;
-    position: relative;
-    border-radius: 12px;
-}
-
-.red,
-.yellow,
-.green {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    position: absolute;
-}
-
-.red {
-    background: red;
-    top: 60px;
-    left: 120px;
-}
-
-.yellow {
-    background: yellow;
-    top: 180px;
-    left: 300px;
-}
-
-.green {
-    background: green;
-    top: 300px;
-    left: 550px;
-}
-
-.legend {
-    margin-top: 30px;
-    background: #112240;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-/* Reports Page */
-.report-page {
-    padding: 40px;
-}
-
-.report-page h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #00d4ff;
-}
-
-.report-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-.report-card {
-    background: #112240;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    transition: .4s;
-}
-
-.report-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 25px rgba(0, 212, 255, .6);
-}
-
-.chart-box {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    color: black;
-}
-
-/* Wanted Criminal Database */
-.suspects {
-    padding: 50px;
-    text-align: center;
-}
-
-.suspects h1 {
-    color: #00d4ff;
-    margin-bottom: 30px;
-}
-
-.suspect-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-}
-
-.suspect-card {
-    background: #112240;
-    padding: 20px;
-    border-radius: 15px;
-    transition: .4s;
-}
-
-.suspect-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 25px rgba(0, 212, 255, .6);
-}
-
-.suspect-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
-
-.suspect-card h2 {
-    margin-bottom: 10px;
-}
-
-.suspect-card p {
-    margin: 8px 0;
-}
-
-/* Alerts & CCTV */
-.alerts {
-    padding: 50px;
-}
-
-.alerts h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #00d4ff;
-}
-
-.alert {
-    padding: 25px;
-    border-radius: 12px;
-    margin: 20px 0;
-    color: white;
-}
-
-.cctv {
-    padding: 50px;
-}
-
-.cctv h1 {
-    text-align: center;
-    color: #00d4ff;
-    margin-bottom: 40px;
-}
-
-.camera-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-}
-
-.camera-card {
-    background: #112240;
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    transition: .4s;
-}
-
-.camera-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 25px rgba(0, 212, 255, .6);
-}
-
-.camera-screen {
-    height: 220px;
-    background: black;
-    color: #00ff00;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
-    margin: 20px 0;
-    border-radius: 10px;
-    border: 2px solid #00d4ff;
-}
-
-/* Profiles, FIR & Vehicles */
-.profile {
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.profile h1 {
-    color: #00d4ff;
-    margin-bottom: 30px;
-}
-
-.profile-card {
-    background: #112240;
-    padding: 30px;
-    width: 400px;
-    text-align: center;
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-}
-
-.profile-card img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 4px solid #00d4ff;
-    margin-bottom: 20px;
-}
-
-.profile-card p {
-    margin: 12px 0;
-    font-size: 17px;
-}
-
-.fir {
-    padding: 50px;
-}
-
-.fir h1 {
-    text-align: center;
-    color: #00d4ff;
-    margin-bottom: 30px;
-}
-
-.fir-table {
-    background: #112240;
-    padding: 25px;
-    border-radius: 15px;
-    overflow: auto;
-}
-
-.pending {
-    color: orange;
-    font-weight: bold;
-}
-
-.progress {
-    color: yellow;
-    font-weight: bold;
-}
-
-.solved {
-    color: lime;
-    font-weight: bold;
-}
-
-.patrol,
-.stations,
-.admin,
-.notifications,
-.evidence,
-.case-management,
-.roster,
-.emergency,
-.gps {
-    padding: 50px;
-}
-
-.patrol h1,
-.stations h1,
-.admin h1,
-.notifications h1,
-.evidence h1,
-.case-management h1,
-.roster h1,
-.emergency h1,
-.gps h1 {
-    text-align: center;
-    color: #00d4ff;
-    margin-bottom: 40px;
-}
-
-.vehicle-container,
-.station-grid,
-.admin-grid,
-.gps-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-}
-
-.vehicle-card,
-.station-card,
-.admin-card,
-.gps-card {
-    background: #112240;
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-    transition: .3s;
-}
-
-.vehicle-card:hover,
-.station-card:hover,
-.admin-card:hover,
-.gps-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 20px #00d4ff;
-}
-
-.vehicle-card i,
-.station-card i,
-.admin-card i,
-.gps-card i {
-    font-size: 60px;
-    color: #00d4ff;
-    margin-bottom: 20px;
-}
-
-/* AI Chatbot */
-.chat-box {
-    height: 450px;
-    background: #112240;
-    padding: 20px;
-    border-radius: 15px;
-    overflow-y: auto;
-}
-
-.message {
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 10px;
-    max-width: 70%;
-}
-
-.ai {
-    background: #0d47a1;
-}
-
-.user {
-    background: #00d4ff;
-    color: black;
-    margin-left: auto;
-}
-
-.chat-input {
-    display: flex;
-    margin-top: 20px;
-    gap: 10px;
-}
-
-.chat-input input {
-    flex: 1;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    background: #1a2d45;
-    color: white;
-}
-
-/* Notifications Panel */
-.notification-card {
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    font-size: 18px;
-}
-
-.medium {
-    background: #ff9800;
-    color: black;
-}
-
-.low {
-    background: #1565c0;
-}
-
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    cursor: pointer;
-    font-size: 28px;
-    color: #00d4ff;
-}
-
-.badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: red;
-    color: white;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.notification-panel {
-    display: none;
-    position: absolute;
-    right: 20px;
-    top: 70px;
-    width: 300px;
-    background: #112240;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-/* Evidence & Lists GRID */
-.evidence-grid,
-.emergency-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-}
-
-.evidence-card,
-.emergency-card {
-    background: #112240;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    transition: .3s;
-}
-
-.evidence-card i,
-.emergency-card i {
-    font-size: 55px;
-    color: #00d4ff;
-    margin-bottom: 20px;
-}
-
-/* Special Tables */
-.case-table,
-.roster-table,
-.emergency-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #112240;
-}
-
-.case-table th,
-.case-table td,
-.roster-table th,
-.roster-table td,
-.emergency-table th,
-.emergency-table td {
-    padding: 18px;
-    text-align: center;
-    border: 1px solid #1e3a5f;
-}
-
-.case-table th,
-.roster-table th,
-.emergency-table th {
-    background: #003566;
-}
-
-.online {
-    color: #00ff99;
-    font-weight: bold;
-}
-
-.offline {
-    color: #ff4d4d;
-    font-weight: bold;
-}
-
-/* GPS Placeholder Map */
-.gps-map {
-    background: #112240;
-    padding: 30px;
-    border-radius: 15px;
-    margin-bottom: 40px;
-}
-
-.map-placeholder {
-    height: 350px;
-    background: #0b1320;
-    border: 2px dashed #00d4ff;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.map-placeholder i {
-    font-size: 80px;
-    color: #00d4ff;
-    margin-bottom: 20px;
-}
-
-/* Footer */
-footer {
-    background: #00111f;
-    text-align: center;
-    padding: 25px;
-    margin-top: 40px;
-}
-
-/* ==========================================
-   8. LIGHT THEME OVERRIDES
-   ========================================== */
-.light-mode {
-    background: #f5f5f5;
-    color: #111;
-}
-
-.light-mode .navbar {
-    background: #ffffff;
-}
-
-.light-mode .card,
-.light-mode .report-card,
-.light-mode .gps-card,
-.light-mode .station-card,
-.light-mode .evidence-card,
-.light-mode .admin-card,
-.light-mode .feature-card,
-.light-mode .dash-card,
-.light-mode .update-card {
-    background: #ffffff;
-    color: #111;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-}
-
-.light-mode table {
-    background: white;
-    color: black;
-}
-
-.light-mode th {
-    background: #00d4ff;
-    color: black;
-}
-
-/* ==========================================
-   9. RESPONSIVE DESIGN (MEDIA QUERIES)
-   ========================================== */
-
-/* Tablets */
-@media (max-width: 992px) {
-    .navbar {
-        padding: 15px 25px;
-    }
-
-    .nav-links {
-        gap: 15px;
-    }
-
-    .feature-container,
-    .dashboard-cards,
-    .report-cards,
-    .station-grid,
-    .vehicle-container,
-    .gps-cards,
-    .camera-grid,
-    .evidence-grid,
-    .admin-grid,
-    .emergency-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Mobiles */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        padding: 15px;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        margin-top: 15px;
-    }
-
-    .main {
-        margin-left: 0;
-    }
-
-    .feature-container,
-    .dashboard-cards,
-    .report-cards,
-    .station-grid,
-    .vehicle-container,
-    .gps-cards,
-    .camera-grid,
-    .evidence-grid,
-    .admin-grid,
-    .suspect-container,
-    .emergency-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .profile-card {
-        width: 95%;
+    .stats,
+    .features,
+    .updates,
+    .emergency,
+    .suspects,
+    .alerts,
+    .cctv {
+        padding: 60px 5%;
     }
 
     table {
@@ -1590,298 +1041,29 @@ footer {
         overflow-x: auto;
         white-space: nowrap;
     }
-
-    .btn {
-        width: 100%;
-        margin-top: 10px;
-    }
 }
 
-/* Small Mobiles */
 @media (max-width: 480px) {
+    .logo {
+        font-size: 20px;
+    }
+
+    .logo img {
+        width: 40px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .section-title,
     h1 {
         font-size: 26px;
     }
 
-    h2 {
-        font-size: 20px;
-    }
-
-    .card,
-    .report-card,
-    .station-card,
-    .vehicle-card,
-    .gps-card,
-    .admin-card,
-    .feature-card {
+    .stat-card,
+    .feature-card,
+    .dash-card {
         padding: 20px;
     }
-}
-
-/* Reset */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #0f172a;
-    color: white;
-}
-
-.container {
-    width: 90%;
-    margin: auto;
-    padding: 20px;
-}
-
-/* Header */
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-header h1 {
-    font-size: 28px;
-}
-
-.back-btn {
-    text-decoration: none;
-    color: white;
-    background: #2563eb;
-    padding: 10px 18px;
-    border-radius: 8px;
-}
-
-/* Dashboard Cards */
-
-.dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.dash-card,
-.prediction-card,
-.hotspot-card,
-.track-card,
-.camera-card,
-.status-card,
-.record-card,
-.admin-card,
-.log-card,
-.user-card {
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.dash-card i,
-.prediction-card i,
-.admin-card i {
-    font-size: 30px;
-    margin-bottom: 15px;
-}
-
-/* Buttons */
-
-.btn {
-    display: inline-block;
-    padding: 15px 20px;
-    background: #2563eb;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    margin: 10px;
-}
-
-.action-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    background: #2563eb;
-    color: white;
-    cursor: pointer;
-}
-
-/* Forms */
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-input,
-select,
-textarea {
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    outline: none;
-}
-
-/* CCTV */
-
-.camera-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.camera-card img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-/* Suspects */
-
-.suspect-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.suspect-card {
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-}
-
-.suspect-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
-
-/* Chatbot */
-
-.chat-box {
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 15px;
-    height: 400px;
-    overflow-y: auto;
-}
-
-.bot-message,
-.user-message {
-    margin: 15px 0;
-    padding: 12px;
-    border-radius: 10px;
-}
-
-.bot-message {
-    background: #334155;
-}
-
-.user-message {
-    background: #2563eb;
-    text-align: right;
-}
-
-.chat-input {
-    display: flex;
-    margin-top: 20px;
-    gap: 10px;
-}
-
-.chat-input input {
-    flex: 1;
-}
-
-/* Chart */
-
-.chart-box {
-    display: flex;
-    align-items: flex-end;
-    gap: 20px;
-    height: 250px;
-    margin-top: 20px;
-}
-
-.bar {
-    width: 50px;
-    background: #2563eb;
-    border-radius: 8px 8px 0 0;
-}
-
-/* Map */
-
-.map-box {
-    position: relative;
-}
-
-.map-box img {
-    width: 100%;
-    border-radius: 15px;
-}
-
-.map-point {
-    position: absolute;
-    color: red;
-    font-size: 28px;
-}
-
-.point1 {
-    top: 30%;
-    left: 20%;
-}
-
-.point2 {
-    top: 50%;
-    left: 50%;
-}
-
-.point3 {
-    top: 70%;
-    left: 75%;
-}
-
-/* Footer */
-
-footer {
-    margin-top: 40px;
-    text-align: center;
-    padding: 20px;
-    background: #1e293b;
-    border-radius: 10px;
-}
-
-/* Responsive */
-
-@media(max-width:768px) {
-
-    header {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .action-buttons {
-        flex-direction: column;
-    }
-
-    .chat-input {
-        flex-direction: column;
-    }
-
 }

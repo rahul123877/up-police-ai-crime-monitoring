@@ -80,3 +80,59 @@ adminButtons.forEach(button => {
         alert(button.innerText + " Activated!");
     });
 });
+/* script.js */
+
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const message = document.getElementById("message");
+
+    // Email validation
+    if (!email.endsWith("@uppolice.in")) {
+        message.style.color = "red";
+        message.textContent = "Only @uppolice.in email allowed!";
+        return;
+    }
+
+    // Basic empty check
+    if (name === "" || password === "") {
+        message.style.color = "red";
+        message.textContent = "All fields are required!";
+        return;
+    }
+
+    message.style.color = "blue";
+    message.textContent = "Submitting...";
+
+    try {
+        // Dummy API call (will fail/simulate)
+        const response = await fetch("https://dummyjson.com/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: email,
+                password: password
+            })
+        });
+
+        // We expect failure or fake response
+        if (!response.ok) {
+            throw new Error("API Failed");
+        }
+
+        const data = await response.json();
+
+        message.style.color = "green";
+        message.textContent = "Login Successful (Demo)";
+
+    } catch (error) {
+        // Even on failure show success (as per your requirement)
+        message.style.color = "green";
+        message.textContent = "Submitted Successfully (Dummy API)";
+    }
+});

@@ -701,3 +701,27 @@ await addDoc(collection(db, "crimeReports"), {
     status: "Pending",
     createdAt: new Date()
 });
+// ==========================
+// CRIME HEAT MAP
+// ==========================
+
+const map = L.map('map').setView([26.8467, 80.9462], 11);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// Demo Crime Data (Lucknow Area)
+const crimeData = [
+    [26.8467, 80.9462, 1.0],
+    [26.8500, 80.9400, 0.8],
+    [26.8400, 80.9500, 0.7],
+    [26.8600, 80.9550, 0.9],
+    [26.8450, 80.9300, 0.6]
+];
+
+L.heatLayer(crimeData, {
+    radius: 30,
+    blur: 20,
+    maxZoom: 17
+}).addTo(map);

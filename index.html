@@ -2,23 +2,24 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>AI Crime & Crime Monitoring System | Uttar Pradesh Police</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+
+    <!-- Leaflet Map CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -26,383 +27,220 @@
     <!-- ==========================
          NAVBAR START
     =========================== -->
-
     <nav class="navbar">
-
         <div class="logo">
-
-            <img src="image/up-police-logo.png" alt="UP Police Logo" class="logo-img">
-
+            <img src="image/up-police-ai.png" alt="UP Police ai" class="logo-img">
             <span>AI Crime Monitor</span>
-
         </div>
-
         <ul class="nav-links">
-
             <li><a href="index.html">Home</a></li>
-
             <li><a href="dashboard.html">Dashboard</a></li>
-
             <li><a href="crime-report.html">Crime Report</a></li>
-
             <li><a href="crime-map.html">Crime Map</a></li>
-
             <li><a href="crime-prediction.html">Prediction</a></li>
-
             <li><a href="reports.html">Reports</a></li>
-
             <li><a href="login.html">Login</a></li>
-
         </ul>
-
         <div class="menu-btn">
-
             <i class="fa-solid fa-bars"></i>
-
         </div>
-
     </nav>
-
     <!-- ==========================
          NAVBAR END
     =========================== -->
+
     <!-- ==========================
          HERO SECTION START
     =========================== -->
-
     <section class="hero">
-
         <!-- Background Overlay -->
         <div class="overlay"></div>
 
         <!-- Hero Content -->
-
         <div class="hero-content">
-
             <!-- UP Police Logo -->
-
             <img src="image/up-police-logo.png" alt="UP Police Logo" class="up-logo">
-
-            <h1>
-                AI Crime & Crime Monitoring System
-            </h1>
-
-            <h3>
-                Uttar Pradesh Police
-            </h3>
-
+            <h1>AI Crime & Crime Monitoring System</h1>
+            <h3>Uttar Pradesh Police</h3>
             <p>
-
                 Smart AI Powered Platform for Crime Monitoring,
                 Crime Prediction, CCTV Surveillance,
                 Emergency Response & Public Safety.
-
             </p>
-
             <div class="hero-btns">
-
                 <a href="crime-report.html" class="btn">
-
                     <i class="fa-solid fa-triangle-exclamation"></i>
-
                     Report Crime
-
                 </a>
-
                 <a href="dashboard.html" class="btn btn-outline">
-
                     <i class="fa-solid fa-chart-line"></i>
-
                     View Dashboard
-
                 </a>
-
             </div>
-
         </div>
 
         <!-- Scroll Down -->
-
         <div class="scroll-down">
-
             <i class="fa-solid fa-angles-down"></i>
-
         </div>
-
     </section>
-
     <!-- ==========================
          HERO SECTION END
     =========================== -->
+
     <!-- ==========================
          LIVE STATISTICS
     =========================== -->
-
     <section class="stats">
-
-        <h2 class="section-title">
-            Live Crime Statistics
-        </h2>
-
+        <h2 class="section-title">Live Crime Statistics</h2>
         <div class="stats-container">
-
             <div class="stat-card">
-
                 <i class="fa-solid fa-shield-halved"></i>
-
                 <h3 id="crimeCount">0</h3>
-
                 <p>Total Crimes</p>
-
             </div>
-
             <div class="stat-card">
-
                 <i class="fa-solid fa-circle-check"></i>
-
                 <h3 id="solvedCases">0</h3>
-
                 <p>Solved Cases</p>
-
             </div>
-
             <div class="stat-card">
-
                 <i class="fa-solid fa-clock"></i>
-
                 <h3 id="pendingCases">0</h3>
-
                 <p>Pending Cases</p>
-
             </div>
-
             <div class="stat-card">
-
                 <i class="fa-solid fa-bell"></i>
-
                 <h3 id="alerts">0</h3>
-
                 <p>AI Alerts</p>
-
             </div>
-
         </div>
-
     </section>
-
-
 
     <!-- ==========================
          AI FEATURES
     =========================== -->
-
     <section class="features">
-
-        <h2 class="section-title">
-            AI Powered Features
-        </h2>
-
+        <h2 class="section-title">AI Powered Features</h2>
         <div class="feature-container">
-
             <div class="feature-card">
-
                 <i class="fa-solid fa-brain"></i>
-
                 <h3>AI Crime Prediction</h3>
-
-                <p>
-                    Predict future crime hotspots using Artificial Intelligence.
-                </p>
-
+                <p>Predict future crime hotspots using Artificial Intelligence.</p>
             </div>
-
             <div class="feature-card">
-
                 <i class="fa-solid fa-map-location-dot"></i>
-
                 <h3>Live Crime Heat Map</h3>
-
-                <p>
-                    Display crime locations on an interactive map in real time.
-                </p>
-
+                <p>Display crime locations on an interactive map in real time.</p>
             </div>
-
             <div class="feature-card">
-
                 <i class="fa-solid fa-camera"></i>
-
                 <h3>Smart CCTV Monitoring</h3>
-
-                <p>
-                    Detect suspicious activities automatically using AI.
-                </p>
-
+                <p>Detect suspicious activities automatically using AI.</p>
             </div>
-
             <div class="feature-card">
-
                 <i class="fa-solid fa-user-secret"></i>
-
                 <h3>Suspect Tracking</h3>
-
-                <p>
-                    Monitor repeat offenders with AI-based tracking.
-                </p>
-
+                <p>Monitor repeat offenders with AI-based tracking.</p>
             </div>
-
             <div class="feature-card">
-
                 <i class="fa-solid fa-location-crosshairs"></i>
-
                 <h3>GPS Police Tracking</h3>
-
-                <p>
-                    Track police vehicles and emergency response units live.
-                </p>
-
+                <p>Track police vehicles and emergency response units live.</p>
             </div>
-
             <div class="feature-card">
-
                 <i class="fa-solid fa-robot"></i>
-
                 <h3>AI Police Assistant</h3>
+                <!-- Yahan code toota hua tha, maine isko complete kar diya hai -->
+                <p>Chat with our AI Assistant for quick help and queries.</p>
+            </div>
+        </div>
+    </section>
 
-                <p>
-                    Chat with
-                    <!-- ==========================
+    <!-- ==========================
          LATEST AI ALERTS
     =========================== -->
+    <section class="updates">
+        <h2 class="section-title">Latest AI Crime Alerts</h2>
+        <div class="updates-container">
+            <div class="update-card">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <h3>High Crime Alert</h3>
+                <p>
+                    AI has detected unusual criminal activity in Sector-21.
+                    Additional police patrol has been recommended.
+                </p>
+            </div>
+            <div class="update-card">
+                <i class="fa-solid fa-car-side"></i>
+                <h3>Police Patrol Active</h3>
+                <p>
+                    Emergency response vehicles are monitoring sensitive
+                    locations across the city.
+                </p>
+            </div>
+            <div class="update-card">
+                <i class="fa-solid fa-video"></i>
+                <h3>CCTV AI Detection</h3>
+                <p>
+                    AI surveillance has identified suspicious movement.
+                    Alert sent to the nearest control room.
+                </p>
+            </div>
+        </div>
+    </section>
 
-                <section class="updates">
+    <!-- ==========================
+         CRIME HEAT MAP SECTION
+    =========================== -->
+    <!-- Map ko ek proper section me daal diya gaya hai -->
+    <section class="map-section" style="padding: 40px 20px; text-align: center;">
+        <h2 class="section-title">Crime Heat Map</h2>
+        <div id="map"
+            style="height: 500px; width: 100%; max-width: 1200px; margin: 20px auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        </div>
+    </section>
 
-                    <h2 class="section-title">
-                        Latest AI Crime Alerts
-                    </h2>
-
-                    <div class="updates-container">
-
-                        <div class="update-card">
-
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-
-                            <h3>High Crime Alert</h3>
-
-                            <p>
-                                AI has detected unusual criminal activity in Sector-21.
-                                Additional police patrol has been recommended.
-                            </p>
-
-                        </div>
-
-                        <div class="update-card">
-
-                            <i class="fa-solid fa-car-side"></i>
-
-                            <h3>Police Patrol Active</h3>
-
-                            <p>
-                                Emergency response vehicles are monitoring sensitive
-                                locations across the city.
-                            </p>
-
-                        </div>
-
-                        <div class="update-card">
-
-                            <i class="fa-solid fa-video"></i>
-
-                            <h3>CCTV AI Detection</h3>
-
-                            <p>
-                                AI surveillance has identified suspicious movement.
-                                Alert sent to the nearest control room.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-
-                <!-- ==========================
+    <!-- ==========================
          EMERGENCY SECTION
     =========================== -->
+    <section class="emergency">
+        <h2>Emergency Helpline</h2>
+        <p>Report any suspicious activity immediately.</p>
+        <div class="emergency-btns">
+            <a href="tel:112" class="btn">
+                <i class="fa-solid fa-phone"></i>
+                Call 112
+            </a>
+            <a href="crime-report.html" class="btn btn-outline">
+                <i class="fa-solid fa-file-circle-plus"></i>
+                File Online Report
+            </a>
+        </div>
+    </section>
 
-                <section class="emergency">
-
-                    <h2>Emergency Helpline</h2>
-
-                    <p>
-                        Report any suspicious activity immediately.
-                    </p>
-
-                    <div class="emergency-btns">
-
-                        <a href="tel:112" class="btn">
-                            <i class="fa-solid fa-phone"></i>
-                            Call 112
-                        </a>
-
-                        <a href="crime-report.html" class="btn btn-outline">
-                            <i class="fa-solid fa-file-circle-plus"></i>
-                            File Online Report
-                        </a>
-
-                    </div>
-
-                </section>
-
-
-
-                <!-- ==========================
+    <!-- ==========================
          FOOTER
     =========================== -->
+    <footer>
+        <div class="footer-content">
+            <img src="image/up-police-logo.png" class="footer-logo" alt="UP Police Logo">
+            <h3>AI Crime & Crime Monitoring System</h3>
+            <p>Smart AI Powered Platform for Uttar Pradesh Police</p>
 
-                <footer>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <hr>
+            <p>© 2026 AI Crime & Crime Monitoring System | UP Police AI Innovation Challenge</p>
+        </div>
+    </footer>
 
-                    <div class="footer-content">
-
-                        <img src="image/up-police-logo.png" class="footer-logo" alt="UP Police Logo">
-
-                        <h3>AI Crime & Crime Monitoring System</h3>
-
-                        <p>
-                            Smart AI Powered Platform for Uttar Pradesh Police
-                        </p>
-
-                        <div class="social-icons">
-
-                            <a href="#"><i class="fab fa-facebook"></i></a>
-
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-
-                            <a href="#"><i class="fab fa-x-twitter"></i></a>
-
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-
-                        </div>
-
-                        <hr>
-
-                        <p>
-                            © 2026 AI Crime & Crime Monitoring System |
-                            UP Police AI Innovation Challenge
-                        </p>
-
-                    </div>
-
-                </footer>
-
-
-
-                <!-- JavaScript -->
-
-                <script src="app.js"></script>
+    <!-- JavaScript -->
+    <script src="app.js"></script>
 
 </body>
 
