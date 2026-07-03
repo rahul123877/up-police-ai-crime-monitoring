@@ -725,3 +725,42 @@ L.heatLayer(crimeData, {
     blur: 20,
     maxZoom: 17
 }).addTo(map);
+async function updateTopWeather() {
+    const apiKey = '9bec9a103cc0cd6c3521d75b2c2c041d';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=Lucknow&units=metric&appid=${apiKey}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const temp = Math.round(data.main.temp);
+
+        // 
+        document.getElementById('tempText').innerText = `${temp}°C • Lucknow`;
+    } catch (error) {
+        document.getElementById('tempText').innerText = "Weather N/A";
+    }
+}
+
+updateTopWeather();
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+
+    e.preventDefault();
+
+    let id = document.getElementById("policeId").value;
+    let pass = document.getElementById("password").value;
+
+    if (id === "RAHUL" && pass === "7607784267") {
+
+        alert("Login Successful 🚔");
+
+        localStorage.setItem("policeUser", "RAHUL");
+
+        window.location.href = "dashboard.html";
+
+    } else {
+
+        alert("Invalid Police ID or Password ❌");
+
+    }
+
+});

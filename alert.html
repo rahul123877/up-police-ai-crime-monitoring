@@ -4,40 +4,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Alerts</title>
+    <title>Live AI Alerts</title>
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 </head>
 
 <body>
 
-    <section class="alerts">
+    <div class="dashboard-layout">
 
-        <h1>🚨 Live AI Alerts</h1>
+        <!-- Sidebar -->
+        <div class="sidebar">
 
-        <div class="alert danger">
-            <h2>🔴 High Risk Alert</h2>
-            <p>Multiple theft cases reported in Hazratganj, Lucknow.</p>
-            <span>Time: 10:45 AM</span>
+            <div class="logo-section">
+                <img src="image/up-police-ai.png" alt="UP Police" style="width:28px;height:28px;">
+                <h2>UP Police AI</h2>
+            </div>
+
+            <ul>
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a href="crime-map.html"><i class="fa-solid fa-map-location-dot"></i> Crime Map</a></li>
+                <li><a href="prediction.html"><i class="fa-solid fa-brain"></i> AI Prediction</a></li>
+                <li><a href="cctv.html"><i class="fa-solid fa-video"></i> CCTV</a></li>
+                <li><a href="alerts.html" class="active"><i class="fa-solid fa-bell"></i> AI Alerts</a></li>
+            </ul>
+
         </div>
 
-        <div class="alert warning">
-            <h2>🟡 Medium Risk</h2>
-            <p>Cyber fraud complaints increasing in Noida.</p>
-            <span>Time: 11:30 AM</span>
+        <!-- Main Content -->
+        <div class="main">
+
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="top-left">
+                    <h1>
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        Live AI Alerts
+                    </h1>
+                    <p>Real-time threat monitoring system</p>
+                </div>
+
+                <a href="dashboard.html" class="btn">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </a>
+            </div>
+
+            <!-- Alerts Section -->
+            <section class="alerts">
+
+                <div class="alert danger">
+                    <h2>🔴 High Risk Alert</h2>
+                    <p>Multiple theft cases reported in Hazratganj, Lucknow.</p>
+                    <span>Time: 10:45 AM</span>
+                </div>
+
+                <div class="alert warning">
+                    <h2>🟡 Medium Risk Alert</h2>
+                    <p>Cyber fraud complaints increasing in Noida.</p>
+                    <span>Time: 11:30 AM</span>
+                </div>
+
+                <div class="alert safe">
+                    <h2>🟢 Safe Zone</h2>
+                    <p>No major incidents reported in Prayagraj.</p>
+                    <span>Updated: 12:15 PM</span>
+                </div>
+
+            </section>
+
         </div>
 
-        <div class="alert safe">
-            <h2>🟢 Safe Zone</h2>
-            <p>No major incidents reported in Prayagraj.</p>
-            <span>Updated: 12:15 PM</span>
-        </div>
+    </div>
 
-    </section>
-    <script src="app.js"></script>
+    <script src="script.js"></script>
+
 </body>
 
 </html>

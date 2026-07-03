@@ -9,61 +9,123 @@
     <link rel="stylesheet" href="style.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 
 <body>
 
-    <div class="container">
+    <div class="dashboard-layout">
 
-        <header>
-            <h1>AI Crime Assistant</h1>
+        <!-- Sidebar -->
+        <div class="sidebar">
 
-            <a href="dashboard.html" class="back-btn">
-                <i class="fa-solid fa-arrow-left"></i> Back
-            </a>
-        </header>
+            <div class="logo-section">
+                <img src="image/up-police-ai.png" alt="UP Police Logo" style="width:28px; height:28px;">
+                <h2>UP Police AI</h2>
+            </div>
 
-        <section class="chat-container">
+            <ul>
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
+                    </a>
+                </li>
 
-            <div class="chat-box">
+                <li>
+                    <a href="crime-map.html">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        Crime Map
+                    </a>
+                </li>
 
-                <div class="bot-message">
-                    <p>Hello! How can I help you today?</p>
+                <li>
+                    <a href="prediction.html">
+                        <i class="fa-solid fa-brain"></i>
+                        AI Prediction
+                    </a>
+                </li>
+
+                <li>
+                    <a href="cctv.html">
+                        <i class="fa-solid fa-video"></i>
+                        CCTV
+                    </a>
+                </li>
+
+                <li>
+                    <a href="assistant.html" class="active">
+                        <i class="fa-solid fa-robot"></i>
+                        AI Assistant
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+
+            <!-- Top Bar -->
+            <div class="top-bar">
+
+                <div class="top-left">
+                    <h1>
+                        <i class="fa-solid fa-robot"></i>
+                        AI Crime Assistant
+                    </h1>
+                    <p>Smart policing support system</p>
                 </div>
 
-                <div class="user-message">
-                    <p>Show nearby police stations.</p>
-                </div>
-
-                <div class="bot-message">
-                    <p>Nearest police station: Hazratganj Police Station.</p>
-                </div>
-
-                <div class="user-message">
-                    <p>Emergency help needed.</p>
-                </div>
-
-                <div class="bot-message">
-                    <p>Dial 112 immediately. Live alert sent.</p>
-                </div>
+                <a href="dashboard.html" class="btn">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </a>
 
             </div>
 
-            <div class="chat-input">
+            <!-- Chat Section -->
+            <section class="chat-container">
 
-                <input type="text" placeholder="Type your message...">
+                <div class="chat-box">
 
-                <button>
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
+                    <div class="bot-message">
+                        <p>Hello Officer! How can I help you today?</p>
+                    </div>
 
-            </div>
+                    <div class="user-message">
+                        <p>Show nearby police stations.</p>
+                    </div>
 
-        </section>
+                    <div class="bot-message">
+                        <p>Nearest Police Station: Hazratganj Police Station.</p>
+                    </div>
+
+                    <div class="user-message">
+                        <p>Emergency help needed.</p>
+                    </div>
+
+                    <div class="bot-message">
+                        <p>Dial 112 immediately. Alert has been sent to control room.</p>
+                    </div>
+
+                </div>
+
+                <!-- Chat Input -->
+                <div class="chat-input">
+
+                    <input type="text" placeholder="Ask AI about FIR, suspects, crime areas...">
+
+                    <button>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+
+                </div>
+
+            </section>
+
+        </div>
 
     </div>
-
+    <script src="script.js"></script>
 </body>
 
 </html>

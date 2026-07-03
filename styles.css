@@ -1136,3 +1136,138 @@ img {
     animation: glow 2s infinite;
 
 }
+
+/* HOLLYWOOD STYLE POPUP */
+
+.ai-popup {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+
+    width: 360px;
+    padding: 22px;
+
+    background: linear-gradient(135deg,
+            rgba(10, 15, 35, .95),
+            rgba(25, 35, 65, .95));
+
+    border: 1px solid rgba(0, 212, 255, .35);
+
+    border-radius: 18px;
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 0 25px rgba(0, 212, 255, .25),
+        0 0 60px rgba(37, 99, 235, .15);
+
+    z-index: 9999;
+
+    transform: translateX(420px);
+    opacity: 0;
+
+    transition: .6s ease;
+}
+
+.ai-popup.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.ai-popup h3 {
+    font-size: 18px;
+    color: #00D4FF;
+    margin-bottom: 10px;
+}
+
+.ai-popup p {
+    color: #E5E7EB;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.ai-popup .popup-icon {
+    font-size: 38px;
+    color: #EF4444;
+    margin-bottom: 12px;
+
+    animation: pulseAlert 1.5s infinite;
+}
+
+@keyframes pulseAlert {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.popup-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.camera-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.camera-card {
+    background: #131B2F;
+    border: 1px solid #1F2937;
+    border-radius: 15px;
+    padding: 15px;
+    position: relative;
+}
+
+.camera-card h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.camera-card video {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.live-badge {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: red;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

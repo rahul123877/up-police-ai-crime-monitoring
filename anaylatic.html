@@ -4,28 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crime Analytics</title>
+    <title>Crime Analytics Dashboard</title>
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
 
-    <div class="report-page">
+    <div class="dashboard-layout">
 
-        <h1>Crime Analytics</h1>
+        <!-- Sidebar -->
+        <div class="sidebar">
 
-        <canvas id="crimeTypeChart"></canvas>
+            <div class="logo-section">
+                <img src="image/up-police-ai.png" alt="UP Police" style="width:28px;height:28px;">
+                <h2>UP Police AI</h2>
+            </div>
 
-        <canvas id="caseStatusChart"></canvas>
+            <ul>
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a href="crime-map.html"><i class="fa-solid fa-map-location-dot"></i> Crime Map</a></li>
+                <li><a href="prediction.html"><i class="fa-solid fa-brain"></i> AI Prediction</a></li>
+                <li><a href="analytics.html" class="active"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+                <li><a href="alerts.html"><i class="fa-solid fa-bell"></i> Alerts</a></li>
+            </ul>
 
-        <canvas id="monthlyCrimeChart"></canvas>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+
+            <!-- Top Bar -->
+            <div class="top-bar">
+
+                <div class="top-left">
+                    <h1>
+                        <i class="fa-solid fa-chart-column"></i>
+                        Crime Analytics
+                    </h1>
+                    <p>Live crime trends & case insights</p>
+                </div>
+
+                <a href="dashboard.html" class="btn">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </a>
+
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Crime Type Distribution</h3>
+                    <canvas id="crimeTypeChart"></canvas>
+                </div>
+
+                <div class="card">
+                    <h3>Case Status Analysis</h3>
+                    <canvas id="caseStatusChart"></canvas>
+                </div>
+
+                <div class="card">
+                    <h3>Monthly Crime Trend</h3>
+                    <canvas id="monthlyCrimeChart"></canvas>
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <script type="module" src="app.js"></script>
+    <script src="script.js"></script>
 
 </body>
 
