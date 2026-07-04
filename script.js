@@ -83,3 +83,44 @@ window.onload = function () {
 function closePopup() {
     document.getElementById("aiPopup").classList.remove("show");
 }
+<script>
+    function findNearestPolice() {
+
+    if (navigator.geolocation) {
+
+        navigator.geolocation.getCurrentPosition(function (position) {
+
+            let userLat = position.coords.latitude;
+            let userLng = position.coords.longitude;
+
+            // User marker
+            L.marker([userLat, userLng])
+                .addTo(map)
+                .bindPopup("📍 Your Location")
+                .openPopup();
+
+            // Demo nearest station
+            let policeStations = [
+                { name: "Hazratganj Police Station", lat: 26.8467, lng: 80.9462 },
+                { name: "Aliganj Police Station", lat: 26.8800, lng: 80.9500 },
+                { name: "Gomti Nagar Police Station", lat: 26.8500, lng: 81.0000 }
+            ];
+
+            let nearest = policeStations[0];
+
+            L.marker([nearest.lat, nearest.lng])
+                .addTo(map)
+                .bindPopup("🚔 " + nearest.name);
+
+            map.setView([userLat, userLng], 13);
+
+            document.getElementById("nearestStation").innerHTML =
+                "🚔 Nearest Station: " + nearest.name;
+
+        });
+
+    } else {
+        alert("Geolocation not supported");
+    }
+}
+</script>
