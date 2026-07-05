@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency SOS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="report-container">
+        <h1>🚨 Emergency SOS</h1>
+
+        <button id="sosBtn" class="btn">
+            Send SOS Alert
+        </button>
+
+        <div id="sosStatus"></div>
+    </div>
+
+    <script>
+        const sosBtn = document.getElementById("sosBtn");
+
+        sosBtn.addEventListener("click", () => {
+
+            navigator.geolocation.getCurrentPosition((position) => {
+
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
+
+                localStorage.setItem("sosLat", lat);
+                localStorage.setItem("sosLng", lng);
+
+                document.getElementById("sosStatus").innerHTML =
+                    "✅ SOS Sent Successfully";
+
+                setTimeout(() => {
+                    window.location.href = "live-location.html";
+                }, 1500);
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

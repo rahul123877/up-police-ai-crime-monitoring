@@ -764,3 +764,23 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     }
 
 });
+const criminalList = document.getElementById("criminalList");
+
+if (criminalList) {
+    onSnapshot(collection(db, "criminals"), (snapshot) => {
+        criminalList.innerHTML = "";
+
+        snapshot.forEach((doc) => {
+            let data = doc.data();
+
+            criminalList.innerHTML += `
+            <div class="suspect-card">
+                <img src="${data.image}" alt="${data.name}">
+                <h3>${data.name}</h3>
+                <p><strong>Crime:</strong> ${data.crime}</p>
+                <p><strong>Status:</strong> Wanted</p>
+            </div>
+            `;
+        });
+    });
+}

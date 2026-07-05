@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Live Emergency Location</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+
+<body style="margin:0;">
+
+    <div id="map" style="height:100vh;"></div>
+
+    <script>
+        let lat = localStorage.getItem("sosLat");
+        let lng = localStorage.getItem("sosLng");
+
+        var map = L.map('map').setView([lat, lng], 16);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        L.marker([lat, lng]).addTo(map)
+            .bindPopup("🚨 Emergency Victim Location")
+            .openPopup();
+    </script>
+
+</body>
+
+</html>
