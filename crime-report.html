@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Crime Report System</title>
-    <!-- Stylesheet Integrations -->
+
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
@@ -13,11 +13,14 @@
 <body>
 
     <div class="report-container">
+
         <h1>🚔 AI Crime Report Form</h1>
 
         <form id="crimeForm">
-            <!-- Complainant Details Section -->
+
+            <!-- COMPLAINANT -->
             <h2>Complainant Details</h2>
+
             <input type="text" id="fullname" placeholder="Full Name" required>
             <input type="text" id="fathername" placeholder="Father / Husband Name">
 
@@ -34,34 +37,20 @@
             <input type="tel" id="mobile" placeholder="Mobile Number" required>
             <input type="email" id="email" placeholder="Email Address">
             <input type="text" id="aadhaar" placeholder="Aadhaar Number">
-            <textarea id="address" placeholder="Complete Address" rows="3"></textarea>
-
-            <div class="row">
-                <input type="text" id="state" placeholder="State">
-                <input type="text" id="district" placeholder="District">
-            </div>
-
-            <div class="row">
-                <input type="text" id="policeStation" placeholder="Police Station">
-                <input type="number" id="pincode" placeholder="PIN Code">
-            </div>
+            <textarea id="address" placeholder="Complete Address"></textarea>
 
             <hr>
 
-            <!-- Crime Details Section -->
+            <!-- CRIME -->
             <h2>Crime Details</h2>
+
             <select id="crimeType" required>
                 <option value="">Select Crime Type</option>
                 <option>Theft</option>
                 <option>Robbery</option>
                 <option>Murder</option>
                 <option>Cyber Crime</option>
-                <option>Kidnapping</option>
-                <option>Domestic Violence</option>
                 <option>Fraud</option>
-                <option>Accident</option>
-                <option>Missing Person</option>
-                <option>Other</option>
             </select>
 
             <div class="row">
@@ -70,43 +59,39 @@
             </div>
 
             <input type="text" id="crimeLocation" placeholder="Crime Location">
-            <textarea id="description" rows="6" placeholder="Describe the Incident"></textarea>
+            <textarea id="description" placeholder="Incident Details" rows="5"></textarea>
 
             <hr>
 
-            <!-- Suspect Details Section -->
-            <h2>👤 Suspect Details</h2>
-            <input type="text" id="suspectName" placeholder="Suspect Name (If Known)">
+            <!-- SUSPECT -->
+            <h2>Suspect Details</h2>
+
+            <input type="text" id="suspectName" placeholder="Suspect Name">
             <input type="text" id="suspectAddress" placeholder="Suspect Address">
-            <input type="text" id="suspectMobile" placeholder="Suspect Mobile Number">
 
             <hr>
 
-            <!-- Witness Details Section -->
-            <h2>👁 Witness Details</h2>
+            <!-- WITNESS -->
+            <h2>Witness Details</h2>
+
             <input type="text" id="witnessName" placeholder="Witness Name">
-            <input type="tel" id="witnessMobile" placeholder="Witness Mobile Number">
-            <input type="text" id="witnessAddress" placeholder="Witness Address">
+            <input type="tel" id="witnessMobile" placeholder="Witness Mobile">
 
             <hr>
 
-            <!-- Evidence Section -->
-            <h2>📂 Evidence Upload</h2>
-            <label for="crimeImage">Upload Crime Image</label>
+            <!-- EVIDENCE -->
+            <h2>Evidence Upload</h2>
+
             <input type="file" id="crimeImage" accept="image/*">
-
-            <label for="crimeVideo">Upload Crime Video</label>
             <input type="file" id="crimeVideo" accept="video/*">
-
-            <label for="crimePdf">Upload Evidence PDF</label>
             <input type="file" id="crimePdf" accept=".pdf">
 
             <hr>
 
-            <!-- AI Engine Analysis Logs -->
-            <h2>🤖 AI Analysis</h2>
+            <!-- AI -->
+            <h2>AI Analysis</h2>
+
             <select id="priority">
-                <option value="">Select Priority</option>
                 <option>High</option>
                 <option>Medium</option>
                 <option>Low</option>
@@ -118,75 +103,85 @@
                 <option>Solved</option>
             </select>
 
-            <input type="text" id="officer" placeholder="Investigating Officer">
-            <input type="text" id="firNo" placeholder="FIR Number (Auto Generate On Submit)" readonly>
-            <input type="datetime-local" id="reportTime">
-            <textarea id="remarks" rows="5" placeholder="Additional Remarks"></textarea>
+            <input type="text" id="officer" placeholder="Officer Name">
+
+            <input type="text" id="firNo" placeholder="FIR Number" readonly>
+
+            <textarea id="remarks" placeholder="Remarks"></textarea>
 
             <hr>
 
-            <!-- Geo Vectors Section -->
-            <h2>📍 GPS Location</h2>
+            <!-- GPS -->
+            <h2>Location</h2>
+
             <div class="row">
-                <input type="text" id="latitude" placeholder="Latitude" readonly>
-                <input type="text" id="longitude" placeholder="Longitude" readonly>
+                <input type="text" id="latitude" readonly placeholder="Latitude">
+                <input type="text" id="longitude" readonly placeholder="Longitude">
             </div>
-            <button type="button" class="btn" onclick="getLocation()">
-                📍 Get Current Location
-            </button>
+
+            <button type="button" class="btn" onclick="getLocation()">📍 Get Location</button>
 
             <hr>
 
-            <!-- Operational Interface Keys -->
-            <div style="text-align:center; margin-top:30px;">
-                <button type="submit" class="btn">🚔 Submit Crime Report</button>
-                <button type="reset" class="btn">🔄 Reset Form</button>
-            </div>
+            <!-- SUBMIT -->
+            <button type="submit" class="btn">🚔 Submit Report</button>
+            <button type="reset" class="btn">🔄 Reset</button>
+
         </form>
+
     </div>
 
-    <!-- Core Runtime Infrastructure Scripts -->
+    <!-- GPS SCRIPT -->
     <script>
-        // High Accuracy Geolocation Pipeline
         function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        document.getElementById("latitude").value = position.coords.latitude;
-                        document.getElementById("longitude").value = position.coords.longitude;
-                    },
-                    function (error) {
-                        alert("Error capturing geolocation vector. Enable location access.");
-                    },
-                    { enableHighAccuracy: true, timeout: 10000 }
-                );
-            } else {
-                alert("Geolocation is not supported by this architecture.");
-            }
+            navigator.geolocation.getCurrentPosition((pos) => {
+                document.getElementById("latitude").value = pos.coords.latitude;
+                document.getElementById("longitude").value = pos.coords.longitude;
+            });
         }
+    </script>
 
-        // Initialize Base Execution States on Document Load
-        window.addEventListener('DOMContentLoaded', () => {
-            // Set active ISO timestamp vector
-            document.getElementById("reportTime").value = new Date().toISOString().slice(0, 16);
-        });
-
-        // Form Submission Data Core
-        document.getElementById("crimeForm").addEventListener("submit", function (e) {
+    <!-- SUBMIT SCRIPT -->
+    <script>
+        document.getElementById("crimeForm").addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            // Generate non-volatile final FIR Number
-            const assignedFir = "FIR-" + Date.now();
-            document.getElementById("firNo").value = assignedFir;
+            const firNo = "FIR-" + Date.now();
+            document.getElementById("firNo").value = firNo;
 
-            alert("Report successfully validated and submitted into processing pipeline!\nAssigned Record: " + assignedFir);
+            const data = {
+                firNo,
+                fullname: document.getElementById("fullname").value,
+                mobile: document.getElementById("mobile").value,
+                crimeType: document.getElementById("crimeType").value,
+                description: document.getElementById("description").value,
+                location: document.getElementById("crimeLocation").value,
+                priority: document.getElementById("priority").value,
+                status: document.getElementById("status").value,
+                officer: document.getElementById("officer").value,
+                latitude: document.getElementById("latitude").value,
+                longitude: document.getElementById("longitude").value,
+                time: new Date().toISOString()
+            };
 
-            // Form integration bridge: data payload syncs to your modular file logic 'js/crime-report.js'
+            // Firebase hook (from external file)
+            import("./js/crime-report.js").then(async (module) => {
+                await module.saveCrimeReport(data);
+            });
+
+            alert("🚔 Report Submitted Successfully: " + firNo);
+
+            document.getElementById("crimeForm").reset();
         });
     </script>
 
-    <script src="fir.js"></script>
     <script type="module" src="js/crime-report.js"></script>
-</body>
 
-</html>
+</body>
+<div class="success-popup" id="successPopup">
+    <div class="success-box">
+        <h2>🚔 Report Submitted</h2>
+        <p id="firText">FIR Generated</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>

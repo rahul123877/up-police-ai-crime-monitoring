@@ -1,4 +1,3 @@
-// 🔥 Firebase v10+ Modular SDK (CLEAN CORE FILE)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
 import {
@@ -10,14 +9,23 @@ import {
     doc,
     query,
     orderBy,
-    getDocs
+    getDocs,
+    addDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 import {
-    getStorage
+    getAuth
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+import {
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-// 🔥 Firebase Config
+/* ---------------- FIREBASE CONFIG ---------------- */
+
 const firebaseConfig = {
     apiKey: "AIzaSyC8aoQxs8QuweHroIsNSH9tL5DyTMa3JBg",
     authDomain: "ai-crime-monitoring.firebaseapp.com",
@@ -28,64 +36,65 @@ const firebaseConfig = {
     measurementId: "G-8J2VBLW3LX"
 };
 
-// 🚀 INIT FIREBASE
+/* ---------------- INIT APP ---------------- */
+
 const app = initializeApp(firebaseConfig);
 
-// 📊 SERVICES
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+/* ---------------- SERVICES ---------------- */
 
-// ===============================
-// 📌 COLLECTIONS (CENTRALIZED)
-// ===============================
-export const reportsRef = collection(db, "reports");
-export const usersRef = collection(db, "policeUsers");
+const db = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
 
-// ===============================
-// 📡 REAL-TIME REPORTS LISTENER
-// ===============================
-export const listenReports = (callback) => {
+/* ---------------- COLLECTIONS ---------------- */
+
+const reportsRef = collection(db, "reports");
+const usersRef = collection(db, "policeUsers");
+
+/* ---------------- FIRESTORE FUNCTIONS ---------------- */
+
+const listenReports = (callback) => {
     const q = query(reportsRef, orderBy("time", "desc"));
     return onSnapshot(q, callback);
 };
 
-// ===============================
-// 🗑 DELETE REPORT
-// ===============================
-export const deleteReport = async (id) => {
-    try {
-        await deleteDoc(doc(db, "reports", id));
-        return true;
-    } catch (error) {
-        console.error("Delete Error:", error);
-        return false;
-    }
+const addReport = async (data) => {
+    return await addDoc(reportsRef, data);
 };
 
-// ===============================
-// ✔ UPDATE STATUS
-// ===============================
-export const updateStatus = async (id, status) => {
-    try {
-        await updateDoc(doc(db, "reports", id), {
-            status: status
-        });
-        return true;
-    } catch (error) {
-        console.error("Update Error:", error);
-        return false;
-    }
+const deleteReport = async (id) => {
+    return await deleteDoc(doc(db, "reports", id));
 };
 
-// ===============================
-// 🔐 LOGIN CHECK (FOR FUTURE USE)
-// ===============================
-export const getUsers = async () => {
-    try {
-        const snapshot = await getDocs(usersRef);
-        return snapshot.docs.map(doc => doc.data());
-    } catch (error) {
-        console.error("User Fetch Error:", error);
-        return [];
-    }
+const updateStatus = async (id, status) => {
+    return await updateDoc(doc(db, "reports", id), { status });
+};
+
+const getUsers = async () => {
+    const snap = await getDocs(usersRef);
+    return snap.docs.map(doc => doc.data());
+};
+
+/* ---------------- STORAGE UPLOAD ---------------- */
+
+const uploadFile = async (file, path) => {
+    const fileRef = ref(storage, path);
+    await uploadBytes(fileRef, file);
+    return await getDownloadURL(fileRef);
+};
+
+/* ---------------- EXPORT EVERYTHING ---------------- */
+
+export {
+    db,
+    auth,
+    storage,
+    reportsRef,
+    usersRef,
+    listenReports,
+    addReport,
+    deleteReport,
+    updateStatus,
+    getUsers,
+    uploadFile
 };

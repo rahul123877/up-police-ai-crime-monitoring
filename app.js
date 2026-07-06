@@ -1,3 +1,4 @@
+console.log("AI Prediction JS Loaded");
 import { db } from "./firebase.js";
 
 import {
@@ -258,20 +259,208 @@ if (crimeForm) {
 }
 function predictCrime() {
 
-    const level = document.getElementById("crimeLevel").value;
+    let district = document.getElementById("district").value;
+    let crime = document.getElementById("crime").value;
 
-    const result = document.getElementById("result");
+    let risk = Math.floor(Math.random() * 100);
 
-    if (level === "high") {
-        result.innerHTML = "⚠ High Crime Risk Area";
+    let now = new Date();
+    let date = now.toLocaleDateString();
+    let time = now.toLocaleTimeString();
+
+    let level = "";
+    let color = "";
+
+    if (risk < 40) {
+        level = "LOW 🟢";
+        color = "green";
     }
-    else if (level === "medium") {
-        result.innerHTML = "⚡ Medium Risk Area";
+    else if (risk < 70) {
+        level = "MEDIUM 🟡";
+        color = "orange";
     }
     else {
-        result.innerHTML = "✅ Safe Area";
+        level = "HIGH 🔴";
+        color = "red";
     }
 
+    document.getElementById("result").innerHTML = `
+// ===============================
+// AI Crime Prediction System
+// ===============================
+
+function predictCrime() {
+
+    const district = document.getElementById("district").value;
+    const crime = document.getElementById("crime").value;
+    const date = document.getElementById("crimeDate").value;
+    const time = document.getElementById("time").value;
+    const weather = document.getElementById("weather").value;
+
+    if (district === "" || crime === "" || date === "") {
+
+        alert("Please fill all required fields.");
+        return;
+
+    }
+
+    // Random AI Prediction
+    let risk = Math.floor(Math.random() * 100) + 1;
+
+    let level = "";
+    let color = "";
+    let recommendation = "";
+
+    if (risk <= 35) {
+
+        level = "🟢 LOW RISK";
+        color = "#00c853";
+
+        recommendation = `
+        < li > Normal police patrol is sufficient.</li >
+        <li>Continue CCTV monitoring.</li>
+        <li>Maintain public awareness.</li>
+    `;
+
+    }
+
+    else if (risk <= 70) {
+
+        level = "🟡 MEDIUM RISK";
+        color = "#ffb300";
+
+        recommendation = `
+        < li > Increase police patrolling.</li >
+        <li>Monitor suspicious activities.</li>
+        <li>Deploy additional CCTV surveillance.</li>
+    `;
+
+    }
+
+    else {
+
+        level = "🔴 HIGH RISK";
+        color = "#ff1744";
+
+        recommendation = `
+        < li > Deploy Quick Response Team.</li >
+        <li>Increase night patrolling.</li>
+        <li>Activate AI Surveillance.</li>
+        <li>Alert nearby police stations.</li>
+    `;
+
+    }
+
+    // Update UI
+
+    document.getElementById("riskPercent").innerHTML = risk + "%";
+
+    document.getElementById("riskLevel").innerHTML = level;
+
+    document.getElementById("riskLevel").style.color = color;
+
+    document.getElementById("riskText").innerHTML = level;
+
+    document.getElementById("confidence").innerHTML =
+        (90 + Math.floor(Math.random() * 10)) + "%";
+
+    document.getElementById("hotspot").innerHTML =
+        district + " City Area";
+
+    document.getElementById("peakTime").innerHTML =
+        time;
+
+    document.getElementById("recommendation").innerHTML =
+        recommendation;
+
+    document.getElementById("progressBar").style.width =
+        risk + "%";
+
+    document.getElementById("progressBar").style.background =
+        color;
+
+    document.getElementById("summaryDistrict").innerHTML =
+        district;
+
+    document.getElementById("summaryCrime").innerHTML =
+        crime;
+
+    document.getElementById("summaryDate").innerHTML =
+        date;
+
+    document.getElementById("summaryTime").innerHTML =
+        time;
+
+    document.getElementById("summaryWeather").innerHTML =
+        weather;
+
+    document.getElementById("summaryScore").innerHTML =
+        risk + "%";
+
+    document.getElementById("predictionStatus").innerHTML =
+        "Prediction Completed";
+
+    document.getElementById("aiStatus").innerHTML =
+        "AI Analysis Successful";
+
+    document.getElementById("aiMessage").innerHTML =
+        `AI predicts < strong > ${ level }</strong > in <strong>${district}</strong> for <strong>${crime}</strong>.`;
+
+    // Prediction History
+
+    const table = document.getElementById("historyTable");
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+        < td > ${ date }</td >
+        <td>${district}</td>
+        <td>${crime}</td>
+        <td style="color:${color};font-weight:bold;">
+            ${risk}%
+        </td>
+    `;
+
+    if (table.children.length == 1 &&
+        table.children[0].innerText.includes("No Prediction")) {
+
+        table.innerHTML = "";
+
+    }
+
+    table.prepend(row);
+
+}
+
+// ===============================
+// Live Date & Time
+// ===============================
+
+function updateClock() {
+
+    const now = new Date();
+
+    const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    };
+
+    const currentDate = document.getElementById("currentDate");
+    const currentTime = document.getElementById("currentTime");
+
+    if (currentDate)
+        currentDate.innerHTML = now.toLocaleDateString("en-IN", options);
+
+    if (currentTime)
+        currentTime.innerHTML = now.toLocaleTimeString();
+
+}
+
+setInterval(updateClock, 1000);
+
+updateClock();
 }
 const ctx = document.getElementById("crimeChart");
 
@@ -296,8 +485,8 @@ function sendMessage(async function sendMessage() {
     const chatBox = document.getElementById("chatBox");
 
     chatBox.innerHTML += `
-<div class="message user">${input}</div>
-`;
+        < div class="message user" > ${ input }</div >
+            `;
 
     const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
@@ -328,8 +517,8 @@ function sendMessage(async function sendMessage() {
     const reply = data.choices[0].message.content;
 
     chatBox.innerHTML += `
-<div class="message ai">${reply}</div>
-`;
+            < div class="message ai" > ${ reply }</div >
+                `;
 
     document.getElementById("userInput").value = "";
 
@@ -338,7 +527,7 @@ function sendMessage(async function sendMessage() {
     let input = document.getElementById("userInput").value;
     let chatBox = document.getElementById("chatBox");
 
-    chatBox.innerHTML += `<div class="message user">${input}</div>`;
+    chatBox.innerHTML += `< div class="message user" > ${ input }</div > `;
 
     let reply = "I am AI Police Assistant";
 
@@ -346,7 +535,7 @@ function sendMessage(async function sendMessage() {
         reply = "Please report crime immediately.";
     }
 
-    chatBox.innerHTML += `<div class="message ai">${reply}</div>`;
+    chatBox.innerHTML += `< div class="message ai" > ${ reply }</div > `;
 
     document.getElementById("userInput").value = "";
 
@@ -403,13 +592,13 @@ if (reportTable) {
             let data = doc.data();
 
             reportTable.innerHTML += `
-<tr>
+        < tr >
 <td>${data.name}</td>
 <td>${data.crime}</td>
 <td>${data.location}</td>
 <td>${new Date(data.time.seconds * 1000).toLocaleString()}</td>
-</tr>
-`;
+</tr >
+        `;
 
         });
 
@@ -441,12 +630,12 @@ if (criminalList) {
             let data = doc.data();
 
             criminalList.innerHTML += `
-<div class="suspect-card">
-<img src="${data.image}">
-<h2>${data.name}</h2>
-<p>${data.crime}</p>
-</div>
-`;
+        < div class="suspect-card" >
+            <img src="${data.image}">
+                <h2>${data.name}</h2>
+                <p>${data.crime}</p>
+            </div>
+    `;
 
         });
 
@@ -523,12 +712,12 @@ if (sosTable) {
             let data = doc.data();
 
             sosTable.innerHTML += `
-<tr>
+        < tr >
 <td>${data.latitude}</td>
 <td>${data.longitude}</td>
 <td>${data.status}</td>
-</tr>
-`;
+</tr >
+        `;
 
         });
 
@@ -542,8 +731,8 @@ async function sendMessage() {
     const chatBox = document.getElementById("chatBox");
 
     chatBox.innerHTML += `
-<div class="message user">${input}</div>
-`;
+        < div class="message user" > ${ input }</div >
+            `;
 
     const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
@@ -574,8 +763,8 @@ async function sendMessage() {
     const reply = data.choices[0].message.content;
 
     chatBox.innerHTML += `
-<div class="message ai">${reply}</div>
-`;
+            < div class="message ai" > ${ reply }</div >
+                `;
 
     document.getElementById("userInput").value = "";
 
@@ -649,12 +838,12 @@ if (monthlyChart) {
         else pending++;
 
         table.innerHTML += `
-            <tr>
+                < tr >
                 <td>${doc.id}</td>
                 <td>${data.crimeType}</td>
                 <td>${data.location}</td>
                 <td>${data.status}</td>
-            </tr>
+            </tr >
         `;
     });
 
@@ -680,12 +869,12 @@ window.liveSearch = function () {
 
     filtered.forEach(crime => {
         table.innerHTML += `
-            <tr>
+        < tr >
                 <td>${crime.id}</td>
                 <td>${crime.crimeType}</td>
                 <td>${crime.location}</td>
                 <td>${crime.status}</td>
-            </tr>
+            </tr >
         `;
     });
 };

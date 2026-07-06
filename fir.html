@@ -2,15 +2,12 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIR Management</title>
 
     <link rel="stylesheet" href="styles.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 </head>
 
 <body>
@@ -24,7 +21,7 @@
                 FIR Management System
             </h1>
 
-            <a href="dashboard.html" class="back-btn">
+            <a href="admin.html" class="back-btn">
                 <i class="fa-solid fa-arrow-left"></i>
                 Back
             </a>
@@ -32,19 +29,18 @@
         </header>
 
         <!-- FIR FORM -->
-
         <section class="fir-form">
 
             <h2>Register New FIR</h2>
 
             <form id="firForm">
 
-                <input type="text" placeholder="Full Name" required>
+                <input type="text" id="name" placeholder="Full Name" required>
 
-                <input type="text" placeholder="Mobile Number" required>
+                <input type="text" id="mobile" placeholder="Mobile Number" required>
 
-                <select required>
-                    <option>Select Crime Type</option>
+                <select id="crime" required>
+                    <option value="">Select Crime Type</option>
                     <option>Theft</option>
                     <option>Robbery</option>
                     <option>Cyber Crime</option>
@@ -52,77 +48,43 @@
                     <option>Assault</option>
                 </select>
 
-                <textarea placeholder="Incident Details" rows="5"></textarea>
+                <textarea id="details" placeholder="Incident Details" rows="5"></textarea>
 
-                <input type="text" placeholder="Location">
+                <input type="text" id="location" placeholder="Location">
 
-                <button type="submit" class="btn">
-                    Submit FIR
-                </button>
+                <button type="submit" class="btn">Submit FIR</button>
 
             </form>
 
         </section>
 
-        <!-- FIR STATUS -->
-
+        <!-- STATUS -->
         <section class="fir-status">
 
             <h2>FIR Status</h2>
 
-            <div class="status-card">
-                FIR #205 - Under Investigation
-            </div>
-
-            <div class="status-card">
-                FIR #206 - Patrol Assigned
-            </div>
-
-            <div class="status-card">
-                FIR #207 - Case Closed
-            </div>
+            <div class="status-card">Live updates will appear here</div>
 
         </section>
 
-        <!-- FIR RECORDS -->
-
+        <!-- TABLE -->
         <section class="record-section">
 
             <h2>Recent FIR Records</h2>
 
             <table>
 
-                <tr>
-                    <th>FIR No.</th>
-                    <th>Name</th>
-                    <th>Crime</th>
-                    <th>Location</th>
-                    <th>Status</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>FIR ID</th>
+                        <th>Name</th>
+                        <th>Crime</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
-                <tr>
-                    <td>FIR001</td>
-                    <td>Rohit Kumar</td>
-                    <td>Theft</td>
-                    <td>Lucknow</td>
-                    <td class="pending">Pending</td>
-                </tr>
-
-                <tr>
-                    <td>FIR002</td>
-                    <td>Amit Singh</td>
-                    <td>Cyber Crime</td>
-                    <td>Noida</td>
-                    <td class="progress">Investigating</td>
-                </tr>
-
-                <tr>
-                    <td>FIR003</td>
-                    <td>Rahul Verma</td>
-                    <td>Robbery</td>
-                    <td>Kanpur</td>
-                    <td class="solved">Solved</td>
-                </tr>
+                <tbody id="firTable"></tbody>
 
             </table>
 
@@ -130,7 +92,7 @@
 
     </div>
 
-    <script src="js/fir.js"></script>
+    <script type="module" src="fir.js"></script>
 
 </body>
 
