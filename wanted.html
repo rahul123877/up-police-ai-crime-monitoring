@@ -1,100 +1,432 @@
-<div class="suspect-container">
-
-    <div class="suspect-card">
-        <img src="criminal1.jpg">
-        <h2>Rohit Sharma</h2>
-        <p>Crime: Robbery</p>
-        <p>Status: Wanted</p>
-    </div>
-
-    <div class="suspect-card">
-        <img src="criminal2.jpg">
-        <h2>Aman Verma</h2>
-        <p>Crime: Cyber Crime</p>
-        <p>Status: Wanted</p>
-    </div>
-
-</div>
-<div class="suspect-container" id="criminalList"></div>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Most Wanted Criminals</title>
 
-    <link rel="stylesheet" href="style.css">
+    <title>UP Police AI | Most Wanted Criminals</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="wanted.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- ================= BACKGROUND ================= -->
 
-        <header>
-            <h1>Most Wanted Criminals</h1>
+    <div class="bg1"></div>
+    <div class="bg2"></div>
 
-            <a href="dashboard.html" class="back-btn">
-                <i class="fa-solid fa-arrow-left"></i> Back
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            <img src="images/logo.png" alt="UP Police">
+
+            <div>
+
+                <h2>UP Police AI</h2>
+
+                <span>Crime Monitoring System</span>
+
+            </div>
+
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
             </a>
-        </header>
 
-        <section class="suspect-grid">
+            <a href="crime-map.html">
+                <i class="fa-solid fa-map-location-dot"></i>
+                Crime Map
+            </a>
 
-            <div class="suspect-card">
-                <img src="images/criminal1.jpg" alt="Criminal 1">
-                <h3>Unknown Alias X</h3>
-                <p>Crime: Robbery</p>
-                <p>Danger Level: High</p>
-                <p>Reward: ₹50,000</p>
+            <a href="wanted.html" class="active">
+                <i class="fa-solid fa-user-secret"></i>
+                Most Wanted
+            </a>
+
+            <a href="report.html">
+                <i class="fa-solid fa-file-circle-plus"></i>
+                Report
+            </a>
+
+        </nav>
+
+    </header>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-left">
+
+            <span class="badge">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                UP Police Intelligence
+
+            </span>
+
+            <h1>
+
+                Most Wanted
+
+                <span>Criminal Database</span>
+
+            </h1>
+
+            <p>
+
+                Search, monitor and identify wanted criminals across the state.
+                This module helps police personnel quickly access information
+                about high-risk offenders.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    Search Criminal
+
+                </button>
+
+                <button class="secondary">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    View Database
+
+                </button>
+
             </div>
 
-            <div class="suspect-card">
-                <img src="images/criminal2.jpg" alt="Criminal 2">
-                <h3>Unknown Alias Z</h3>
-                <p>Crime: Murder</p>
-                <p>Danger Level: Very High</p>
-                <p>Reward: ₹1,00,000</p>
+        </div>
+
+        <div class="hero-right">
+
+            <div class="wanted-circle">
+
+                <i class="fa-solid fa-user-secret"></i>
+
             </div>
 
-            <div class="suspect-card">
-                <img src="images/criminal3.jpg" alt="Criminal 3">
-                <h3>Unknown Alias K</h3>
-                <p>Crime: Cyber Fraud</p>
-                <p>Danger Level: Medium</p>
-                <p>Reward: ₹30,000</p>
+        </div>
+
+    </section>
+
+    <!-- ================= STATISTICS ================= -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <i class="fa-solid fa-users"></i>
+
+            <h2>287</h2>
+
+            <p>Total Wanted</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <i class="fa-solid fa-gun"></i>
+
+            <h2>43</h2>
+
+            <p>Armed Criminals</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            <h2>19</h2>
+
+            <p>Recently Tracked</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <i class="fa-solid fa-award"></i>
+
+            <h2>₹1.8 Cr</h2>
+
+            <p>Total Rewards</p>
+
+        </div>
+
+    </section>
+
+    <!-- ================= SEARCH ================= -->
+
+    <section class="search-panel">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input type="text" id="searchInput" placeholder="Search by Name, Crime, Alias or District">
+
+        </div>
+
+        <select id="crimeFilter">
+
+            <option>All Crimes</option>
+
+            <option>Murder</option>
+
+            <option>Robbery</option>
+
+            <option>Cyber Crime</option>
+
+            <option>Kidnapping</option>
+
+            <option>Drug Smuggling</option>
+
+            <option>Extortion</option>
+
+        </select>
+
+        <select id="dangerFilter">
+
+            <option>Danger Level</option>
+
+            <option>Very High</option>
+
+            <option>High</option>
+
+            <option>Medium</option>
+
+            <option>Low</option>
+
+        </select>
+
+        <button id="searchBtn">
+
+            <i class="fa-solid fa-filter"></i>
+
+            Search
+
+        </button>
+
+    </section>
+
+    <!-- ================= CRIMINAL GRID START ================= -->
+
+    <section class="criminal-grid">
+        <!-- ================= CRIMINAL CARD 1 ================= -->
+
+        <div class="criminal-card">
+
+            <div class="reward">₹5,00,000 Reward</div>
+
+            <img src="images/criminal1.jpg" alt="Criminal">
+
+            <div class="criminal-info">
+
+                <span class="danger high">VERY HIGH</span>
+
+                <h2>Unknown Alias X</h2>
+
+                <p><i class="fa-solid fa-user"></i> Age : 35 Years</p>
+
+                <p><i class="fa-solid fa-venus-mars"></i> Male</p>
+
+                <p><i class="fa-solid fa-ruler-vertical"></i> Height : 178 cm</p>
+
+                <p><i class="fa-solid fa-gun"></i> Crime : Murder & Robbery</p>
+
+                <p><i class="fa-solid fa-location-dot"></i> Last Seen : Ghaziabad</p>
+
+                <div class="card-buttons">
+
+                    <button class="detailsBtn">
+                        <i class="fa-solid fa-eye"></i>
+                        View Profile
+                    </button>
+
+                    <button class="reportBtn">
+                        <i class="fa-solid fa-phone"></i>
+                        Report
+                    </button>
+
+                </div>
+
             </div>
 
-            <div class="suspect-card">
-                <img src="images/criminal4.jpg" alt="Criminal 4">
-                <h3>Unknown Alias M</h3>
-                <p>Crime: Kidnapping</p>
-                <p>Danger Level: High</p>
-                <p>Reward: ₹75,000</p>
+        </div>
+
+        <!-- ================= CRIMINAL CARD 2 ================= -->
+
+        <div class="criminal-card">
+
+            <div class="reward">₹2,50,000 Reward</div>
+
+            <img src="images/criminal2.jpg" alt="Criminal">
+
+            <div class="criminal-info">
+
+                <span class="danger medium">HIGH</span>
+
+                <h2>Aman Verma</h2>
+
+                <p><i class="fa-solid fa-user"></i> Age : 29 Years</p>
+
+                <p><i class="fa-solid fa-laptop-code"></i> Cyber Crime</p>
+
+                <p><i class="fa-solid fa-location-dot"></i> Last Seen : Noida</p>
+
+                <div class="card-buttons">
+
+                    <button class="detailsBtn">
+                        View Profile
+                    </button>
+
+                    <button class="reportBtn">
+                        Report
+                    </button>
+
+                </div>
+
             </div>
 
-        </section>
+        </div>
 
-        <section class="tip-section">
+        <!-- ================= CRIMINAL CARD 3 ================= -->
 
-            <h2>Submit Anonymous Tip</h2>
+        <div class="criminal-card">
 
-            <form>
+            <div class="reward">₹1,50,000 Reward</div>
 
-                <input type="text" placeholder="Suspect Name">
+            <img src="images/criminal3.jpg" alt="Criminal">
 
-                <textarea placeholder="Write your tip..." rows="5"></textarea>
+            <div class="criminal-info">
 
-                <button type="submit">Submit Tip</button>
+                <span class="danger high">HIGH</span>
 
-            </form>
+                <h2>Unknown Alias K</h2>
 
-        </section>
+                <p><i class="fa-solid fa-gun"></i> Arms Smuggling</p>
 
-    </div>
+                <p><i class="fa-solid fa-location-dot"></i> Last Seen : Meerut</p>
+
+                <div class="card-buttons">
+
+                    <button class="detailsBtn">
+                        View Profile
+                    </button>
+
+                    <button class="reportBtn">
+                        Report
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= CRIMINAL CARD 4 ================= -->
+
+        <div class="criminal-card">
+
+            <div class="reward">₹3,00,000 Reward</div>
+
+            <img src="images/criminal4.jpg" alt="Criminal">
+
+            <div class="criminal-info">
+
+                <span class="danger high">VERY HIGH</span>
+
+                <h2>Unknown Alias M</h2>
+
+                <p><i class="fa-solid fa-user-secret"></i> Kidnapping Gang</p>
+
+                <p><i class="fa-solid fa-location-dot"></i> Last Seen : Lucknow</p>
+
+                <div class="card-buttons">
+
+                    <button class="detailsBtn">
+                        View Profile
+                    </button>
+
+                    <button class="reportBtn">
+                        Report
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= TIP FORM ================= -->
+
+    <section class="tip-box">
+
+        <h2>
+            <i class="fa-solid fa-circle-exclamation"></i>
+            Anonymous Information
+        </h2>
+
+        <p>
+            If you have any information regarding any wanted criminal,
+            submit it securely below.
+        </p>
+
+        <form>
+
+            <input type="text" placeholder="Suspect Name">
+
+            <input type="text" placeholder="Location">
+
+            <textarea rows="6" placeholder="Enter complete information..."></textarea>
+
+            <button type="submit">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Submit Information
+
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+
+            © 2026 UP Police AI Crime Monitoring System
+
+        </p>
+
+    </footer>
+
+    <script src="wanted.js"></script>
 
 </body>
 

@@ -1023,3 +1023,323 @@ function findNearestPolice() {
         enableHighAccuracy: true
     });
 }
+import { db, listenReports } from "./firebase.js";
+import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ================= CHAT SYSTEM =================
+document.addEventListener("DOMContentLoaded", function () {
+
+    const input = document.querySelector(".chat-input input");
+    const button = document.querySelector(".chat-input button");
+    const chatBox = document.querySelector(".chat-box");
+
+    if (!input || !button || !chatBox) return;
+
+    function getBotReply(message) {
+        message = message.toLowerCase();
+
+        if (message.includes("police")) {
+            return "Nearest Police Station: Hazratganj Police Station.";
+        }
+        if (message.includes("emergency")) {
+            return "Dial 112 immediately. Emergency alert sent.";
+        }
+        if (message.includes("crime")) {
+            return "High crime zone detected in Lucknow Central Area.";
+        }
+        if (message.includes("fir")) {
+            return "You can file FIR from the Report Section.";
+        }
+        if (message.includes("help")) {
+            return "Police emergency support activated.";
+        }
+
+        return "AI Assistant is analyzing your request...";
+    }
+
+    function sendMessage() {
+        const text = input.value.trim();
+        if (!text) return;
+
+        // user msg
+        const userDiv = document.createElement("div");
+        userDiv.className = "user-message";
+        userDiv.innerHTML = `<p>${text}</p>`;
+        chatBox.appendChild(userDiv);
+
+        input.value = "";
+
+        // bot typing
+        const botDiv = document.createElement("div");
+        botDiv.className = "bot-message";
+        botDiv.innerHTML = `<p>Typing...</p>`;
+        chatBox.appendChild(botDiv);
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        setTimeout(() => {
+            botDiv.innerHTML = `<p>${getBotReply(text)}</p>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 800);
+    }
+
+    button.addEventListener("click", sendMessage);
+
+    input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") sendMessage();
+    });
+});
+
+
+// ================= POPUP =================
+window.onload = function () {
+    setTimeout(() => {
+        document.getElementById("aiPopup")?.classList.add("show");
+    }, 1500);
+};
+
+function closePopup() {
+    document.getElementById("aiPopup")?.classList.remove("show");
+}
+window.closePopup = closePopup;
+
+
+// ================= DASHBOARD STATS =================
+const totalCrime = document.getElementById("totalCrime");
+const solvedCase = document.getElementById("solvedCase");
+const pendingCase = document.getElementById("pendingCase");
+const aiAlert = document.getElementById("aiAlert");
+
+listenReports((snapshot) => {
+
+    let total = snapshot.size;
+    let solved = 0;
+    let pending = 0;
+    let alerts = 0;
+
+    snapshot.forEach((doc) => {
+        const data = doc.data();
+
+        let status = (data.status || "").toLowerCase();
+        if (status === "solved") solved++;
+        else pending++;
+
+        let text = (data.crime || data.description || "").toLowerCase();
+
+        if (
+            text.includes("murder") ||
+            text.includes("kidnap") ||
+            text.includes("robbery") ||
+            text.includes("terror")
+        ) {
+            alerts++;
+        }
+    });
+
+    if (totalCrime) totalCrime.innerText = total;
+    if (solvedCase) solvedCase.innerText = solved;
+    if (pendingCase) pendingCase.innerText = pending;
+    if (aiAlert) aiAlert.innerText = alerts;
+});
+
+
+// ================= OFFICERS COUNT =================
+const officerCount = document.getElementById("officerCount");
+
+onSnapshot(collection(db, "policeUsers"), (snapshot) => {
+    if (officerCount) {
+        officerCount.innerText = snapshot.size;
+    }
+});
+// ================= EMERGENCY RESPONSE SYSTEM =================
+
+
+// SOS BUTTON FUNCTION
+
+function triggerSOS() {
+
+
+    let confirmSOS = confirm(
+        "🚨 Emergency SOS activate karna hai?"
+    );
+
+
+    if (confirmSOS) {
+
+
+        getEmergencyLocation();
+
+
+        alert(
+            "🚨 SOS ALERT SENT\nNearest Police Unit Notified"
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+// ================= LIVE LOCATION =================
+
+
+function getEmergencyLocation() {
+
+
+    if (navigator.geolocation) {
+
+
+        navigator.geolocation.getCurrentPosition(
+
+            function (position) {
+
+
+                let lat =
+                    position.coords.latitude;
+
+
+                let lng =
+                    position.coords.longitude;
+
+
+
+                console.log(
+                    "Emergency Location:",
+                    lat,
+                    lng
+                );
+
+
+
+                localStorage.setItem(
+                    "emergency_lat",
+                    lat
+                );
+
+
+                localStorage.setItem(
+                    "emergency_lng",
+                    lng
+                );
+
+
+
+            },
+
+
+            function () {
+
+
+                alert(
+                    "Location permission denied"
+                );
+
+
+            }
+
+
+        );
+
+
+    }
+
+    else {
+
+
+        alert(
+            "GPS not supported"
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+// ================= EMERGENCY CALL COUNTER =================
+
+
+let emergencyCalls = 125;
+
+
+
+function increaseEmergencyCall() {
+
+
+    emergencyCalls++;
+
+
+    let callBox =
+        document.getElementById(
+            "emergencyCalls"
+        );
+
+
+    if (callBox) {
+
+        callBox.innerHTML =
+            emergencyCalls;
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+// ================= AUTO ALERT SYSTEM =================
+
+
+setInterval(() => {
+
+
+    console.log(
+        "AI Emergency Monitoring Active..."
+    );
+
+
+}, 5000);
+
+
+
+
+
+
+
+
+// ================= CASE STATUS UPDATE =================
+
+
+function updateCaseStatus(id, status) {
+
+
+    let row =
+        document.getElementById(id);
+
+
+    if (row) {
+
+        row.innerHTML = status;
+
+    }
+
+
+}

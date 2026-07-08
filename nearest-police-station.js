@@ -1,29 +1,21 @@
 let map = L.map('map').setView([26.8467, 80.9462], 12);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
-    .addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: "© OpenStreetMap"
+}).addTo(map);
 
-// Demo Police Stations
+// ================= POLICE STATIONS =================
 const policeStations = [
-    {
-        name: "Hazratganj Police Station",
-        lat: 26.8480,
-        lng: 80.9425
-    },
-    {
-        name: "Alambagh Police Station",
-        lat: 26.8145,
-        lng: 80.9002
-    },
-    {
-        name: "Gomti Nagar Police Station",
-        lat: 26.8650,
-        lng: 81.0100
-    }
+    { name: "Hazratganj Police Station", lat: 26.8480, lng: 80.9425 },
+    { name: "Alambagh Police Station", lat: 26.8145, lng: 80.9002 },
+    { name: "Gomti Nagar Police Station", lat: 26.8650, lng: 81.0100 }
 ];
 
-function getDistance(lat1, lon1, lat2, lon2) {
+let userMarker;
+let stationMarker;
 
+// ================= DISTANCE FUNCTION =================
+function getDistance(lat1, lon1, lat2, lon2) {
     const R = 6371;
 
     const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -35,52 +27,77 @@ function getDistance(lat1, lon1, lat2, lon2) {
         Math.cos(lat2 * Math.PI / 180) *
         Math.sin(dLon / 2) * Math.sin(dLon / 2);
 
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return R * c;
+    return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
+// ================= GET LOCATION =================
 function getLocation() {
 
-    navigator.geolocation.getCurrentPosition(function (position) {
+    if (!navigator.geolocation) {
+        alert("Geolocation not supported");
+        return;
+    }
 
-        let userLat = position.coords.latitude;
-        let userLng = position.coords.longitude;
+    navigator.geolocation.getCurrentPosition(
+        function (position) {
 
-        L.marker([userLat, userLng])
-            .addTo(map)
-            .bindPopup("Your Location")
-            .openPopup();
+            let userLat = position.coords.latitude;
+            let userLng = position.coords.longitude;
 
-        map.setView([userLat, userLng], 14);
+            // remove old marker
+            if (userMarker) map.removeLayer(userMarker);
 
-        let nearest = null;
-        let minDistance = Infinity;
-
-        policeStations.forEach(station => {
-
-            L.marker([station.lat, station.lng])
+            userMarker = L.marker([userLat, userLng])
                 .addTo(map)
-                .bindPopup(station.name);
+                .bindPopup("📍 Your Location")
+                .openPopup();
 
-            let distance = getDistance(
-                userLat,
-                userLng,
-                station.lat,
-                station.lng
-            );
+            map.setView([userLat, userLng], 14);
 
-            if (distance < minDistance) {
-                minDistance = distance;
-                nearest = station;
-            }
+            let nearest = null;
+            let minDistance = Infinity;
 
-        });
+            // remove old station marker
+            if (stationMarker) map.removeLayer(stationMarker);
 
-        document.getElementById("stationInfo").innerHTML =
-            `Nearest Police Station: <b>${nearest.name}</b>
-<br>Distance: ${minDistance.toFixed(2)} KM`;
+            policeStations.forEach(station => {
 
-    });
+                const distance = getDistance(
+                    userLat,
+                    userLng,
+                    station.lat,
+                    station.lng
+                );
 
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearest = station;
+                }
+
+                // show all stations
+                L.marker([station.lat, station.lng])
+                    .addTo(map)
+                    .bindPopup(station.name);
+            });
+
+            // highlight nearest
+            stationMarker = L.marker([nearest.lat, nearest.lng], {
+                icon: L.icon({
+                    iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+                    iconSize: [35, 35]
+                })
+            })
+                .addTo(map)
+                .bindPopup("🚔 Nearest: " + nearest.name)
+                .openPopup();
+
+            document.getElementById("stationInfo").innerHTML =
+                `🚔 Nearest Police Station: <b>${nearest.name}</b><br>
+                 📍 Distance: ${minDistance.toFixed(2)} KM`;
+        },
+
+        function (error) {
+            alert("Location access denied ❌");
+        }
+    );
 }

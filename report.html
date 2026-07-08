@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Crime Monitoring - FIR Management System</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header class="main-header">
+
+            <div>
+
+                <h1>
+
+                    <i class="fa-solid fa-folder-open"></i>
+
+                    AI FIR Management System
+
+                </h1>
+
+                <p>
+                    AI Crime Monitoring & Investigation Portal
+                </p>
+
+            </div>
+
+            <div class="header-actions">
+
+                <a href="dashboard.html" class="btn">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Dashboard
+
+                </a>
+
+                <a href="admin.html" class="btn">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                    Admin Panel
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+
+
+
+        <!-- ================= FIR DASHBOARD ================= -->
+
+        <div class="fir-dashboard">
+
+            <div class="fir-card">
+
+                <i class="fa-solid fa-file-circle-plus"></i>
+
+                <h2 id="totalFir">
+                    0
+                </h2>
+
+                <p>
+                    Total FIR
+                </p>
+
+            </div>
+
+            <div class="fir-card">
+
+                <i class="fa-solid fa-hourglass-half"></i>
+
+                <h2 id="pendingFir">
+                    0
+                </h2>
+
+                <p>
+                    Pending
+                </p>
+
+            </div>
+
+            <div class="fir-card">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <h2 id="approvedFir">
+                    0
+                </h2>
+
+                <p>
+                    Approved
+                </p>
+
+            </div>
+
+            <div class="fir-card">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <h2 id="criticalFir">
+                    0
+                </h2>
+
+                <p>
+                    Critical Cases
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="dashboard-grid">
+
+            <section class="fir-form-card">
+
+                <h2>
+
+                    <i class="fa-solid fa-pen-to-square"></i>
+
+                    Register New FIR
+
+                </h2>
+
+                <form id="firForm" autocomplete="off">
+
+                    <div class="form-group">
+
+                        <label>Full Name</label>
+
+                        <input type="text" id="name" placeholder="Enter Full Name" required>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>Mobile Number</label>
+
+                            <input type="tel" id="mobile" placeholder="10 Digit Mobile" maxlength="10" required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Email</label>
+
+                            <input type="email" id="email" placeholder="Email Address">
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>Crime Type</label>
+
+                            <select id="crime" required>
+
+                                <option value="">Select Crime</option>
+
+                                <option>Theft</option>
+                                <option>Robbery</option>
+                                <option>Cyber Crime</option>
+                                <option>Fraud</option>
+                                <option>Kidnapping</option>
+                                <option>Murder</option>
+                                <option>Missing Person</option>
+                                <option>Domestic Violence</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Priority</label>
+
+                            <select id="priority">
+
+                                <option>Low</option>
+                                <option>Medium</option>
+                                <option>High</option>
+                                <option>Critical</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>Incident Date</label>
+
+                            <input type="date" id="incidentDate" required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Incident Time</label>
+
+                            <input type="time" id="incidentTime" required>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Incident Location</label>
+
+                        <input type="text" id="location" placeholder="Enter Incident Location" required>
+
+                    </div>
+                    <!-- ================= EVIDENCE ================= -->
+
+                    <div class="form-group">
+
+                        <label>Evidence Upload</label>
+
+                        <input type="file" id="evidence" accept="image/*,video/*,.pdf" multiple>
+
+                        <small>
+                            Upload Images, Videos or PDF Evidence (Optional)
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- ================= GPS ================= -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>Current GPS Location</label>
+
+                            <input type="text" id="gpsLocation" placeholder="Click 'Get Location'" readonly>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>&nbsp;</label>
+
+                            <button type="button" class="btn" onclick="getCurrentLocation()">
+
+                                <i class="fa-solid fa-location-crosshairs"></i>
+
+                                Get Location
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+
+                    <!-- ================= AI RISK ================= -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>AI Risk Level</label>
+
+                            <input type="text" id="riskLevel" value="Pending AI Analysis" readonly>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Emergency Case</label>
+
+                            <select id="emergency">
+
+                                <option value="No">
+                                    No
+                                </option>
+
+                                <option value="Yes">
+                                    Yes
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+                    <!-- ================= ADDRESS ================= -->
+
+                    <div class="form-group">
+
+                        <label>Complete Address</label>
+
+                        <textarea id="address" rows="3" placeholder="Complete Address"></textarea>
+
+                    </div>
+
+
+
+
+
+
+                    <!-- ================= INCIDENT ================= -->
+
+                    <div class="form-group">
+
+                        <label>Incident Details</label>
+
+                        <textarea id="details" rows="6" placeholder="Write complete incident details..."
+                            required></textarea>
+
+                    </div>
+
+
+
+
+
+
+                    <!-- ================= DECLARATION ================= -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            <input type="checkbox" required>
+
+                            I confirm that the above information is true.
+
+                        </label>
+
+                    </div>
+
+
+
+
+
+
+                    <button type="submit" class="btn btn-submit">
+
+                        <i class="fa-solid fa-paper-plane"></i>
+
+                        Submit FIR
+
+                    </button>
+
+                </form>
+
+            </section>
+
+
+
+
+
+
+
+            <!-- ================= LIVE STATUS ================= -->
+
+            <section class="fir-status-card">
+
+                <h2>
+
+                    <i class="fa-solid fa-signal"></i>
+
+                    Live FIR Status
+
+                </h2>
+
+                <div class="status-container">
+
+                    <div id="statusUpdate" class="status-card empty">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        <h3>
+                            Waiting...
+                        </h3>
+
+                        <p>
+
+                            Submit FIR to receive AI verification,
+                            FIR number and investigation updates.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+        <!-- ================= RECENT FIR RECORDS ================= -->
+
+        <section class="record-section">
+
+            <div class="section-header">
+
+                <h2>
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Recent FIR Records
+                </h2>
+
+                <input type="search" id="searchFir" placeholder="Search FIR...">
+
+            </div>
+
+
+
+            <div class="table-responsive">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>FIR ID</th>
+                            <th>Name</th>
+                            <th>Crime</th>
+                            <th>Priority</th>
+                            <th>Location</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="firTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+
+
+        <!-- ================= AI INVESTIGATION ================= -->
+
+        <section class="record-section">
+
+            <h2>
+
+                <i class="fa-solid fa-microchip"></i>
+
+                AI Investigation Progress
+
+            </h2>
+
+
+
+            <div class="timeline">
+
+                <div class="timeline-item completed">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <div>
+
+                        <h3>FIR Submitted</h3>
+
+                        <p>Complaint successfully registered.</p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="timeline-item">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <div>
+
+                        <h3>AI Verification</h3>
+
+                        <p>Evidence verification in progress.</p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="timeline-item">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                    <div>
+
+                        <h3>Officer Assigned</h3>
+
+                        <p>Investigation officer will be assigned.</p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="timeline-item">
+
+                    <i class="fa-solid fa-scale-balanced"></i>
+
+                    <div>
+
+                        <h3>Case Investigation</h3>
+
+                        <p>Case under investigation.</p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="timeline-item">
+
+                    <i class="fa-solid fa-folder-open"></i>
+
+                    <div>
+
+                        <h3>Case Closed</h3>
+
+                        <p>Investigation completed.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+
+
+
+        <footer class="footer">
+
+            <p>
+
+                © 2026 AI Crime Monitoring System |
+                Uttar Pradesh Police |
+                FIR Management Portal
+
+            </p>
+
+        </footer>
+
+    </div>
+
+    <script type="module" src="fir.js"></script>
+
+    <script>
+
+        function getCurrentLocation() {
+
+            if (!navigator.geolocation) {
+
+                alert("Geolocation is not supported by this browser.");
+
+                return;
+
+            }
+
+            navigator.geolocation.getCurrentPosition(
+
+                function (position) {
+
+                    document.getElementById("gpsLocation").value =
+                        position.coords.latitude.toFixed(6) +
+                        ", " +
+                        position.coords.longitude.toFixed(6);
+
+                },
+
+                function () {
+
+                    alert("Unable to fetch current location.");
+
+                }
+
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>

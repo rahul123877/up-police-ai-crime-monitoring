@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UP Police AI - Duty Roster</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="roster.css">
+
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="topbar">
+
+        <div class="logo">
+
+            <img src="logo.png" alt="logo">
+
+            <div>
+
+                <h2>UP Police AI Crime Monitoring</h2>
+
+                <p>Roster Duty Management System</p>
+
+            </div>
+
+        </div>
+
+        <div class="top-right">
+
+            <button id="refreshBtn">
+
+                <i class="fa-solid fa-rotate"></i>
+
+                Refresh
+
+            </button>
+
+            <button onclick="window.print()">
+
+                <i class="fa-solid fa-print"></i>
+
+                Print
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="wrapper">
+
+        <aside class="sidebar">
+
+            <h3>MENU</h3>
+
+            <ul>
+
+                <li>
+
+                    <a href="index.html">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="crime.html">
+
+                        <i class="fa-solid fa-user-secret"></i>
+
+                        Crime Reports
+
+                    </a>
+
+                </li>
+
+                <li class="active">
+
+                    <a href="roster.html">
+
+                        <i class="fa-solid fa-calendar-days"></i>
+
+                        Roster Duty
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="map.html">
+
+                        <i class="fa-solid fa-map-location-dot"></i>
+
+                        Crime Map
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="ai.html">
+
+                        <i class="fa-solid fa-robot"></i>
+
+                        AI Assistant
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <i class="fa-solid fa-gear"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <!-- ================= MAIN ================= -->
+
+        <main class="content">
+
+            <h1>
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+                Daily Duty Roster
+
+            </h1>
+
+            <p class="date">
+
+                Date :
+                <span id="todayDate"></span>
+
+            </p>
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <div class="cards">
+
+                <div class="card blue">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <h2 id="totalStaff">156</h2>
+
+                    <p>Total Staff</p>
+
+                </div>
+
+                <div class="card green">
+
+                    <i class="fa-solid fa-sun"></i>
+
+                    <h2 id="dayDuty">84</h2>
+
+                    <p>Day Duty</p>
+
+                </div>
+
+                <div class="card red">
+
+                    <i class="fa-solid fa-moon"></i>
+
+                    <h2 id="nightDuty">58</h2>
+
+                    <p>Night Duty</p>
+
+                </div>
+
+                <div class="card orange">
+
+                    <i class="fa-solid fa-bed"></i>
+
+                    <h2 id="leaveStaff">14</h2>
+
+                    <p>Leave</p>
+
+                </div>
+
+            </div>
+
+            <!-- ================= SEARCH ================= -->
+
+            <section class="filter-box">
+
+                <h2>
+
+                    <i class="fa-solid fa-filter"></i>
+
+                    Search Duty
+
+                </h2>
+
+                <div class="filters">
+
+                    <input type="text" id="searchOfficer" placeholder="Search Officer Name">
+
+                    <select id="rankFilter">
+
+                        <option value="">All Rank</option>
+
+                        <option>Inspector</option>
+
+                        <option>Sub Inspector</option>
+
+                        <option>Head Constable</option>
+
+                        <option>Constable</option>
+
+                        <option>Women Constable</option>
+
+                    </select>
+
+                    <select id="shiftFilter">
+
+                        <option value="">All Shift</option>
+
+                        <option>Day</option>
+
+                        <option>Night</option>
+
+                    </select>
+
+                    <select id="locationFilter">
+
+                        <option value="">All Location</option>
+
+                        <option>Police Station</option>
+
+                        <option>Cyber Cell</option>
+
+                        <option>Pink Booth</option>
+
+                        <option>Help Desk</option>
+
+                        <option>Chowki Masuri</option>
+
+                        <option>Chowki Jail</option>
+
+                        <option>Chowki Nahal</option>
+
+                        <option>Checking Point</option>
+
+                    </select>
+
+                    <button id="searchBtn">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        Search
+
+                    </button>
+
+                    <button id="resetBtn">
+
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- ================= SUMMARY ================= -->
+
+            <section class="summary">
+
+                <div class="summary-box">
+
+                    <h3>Today's Summary</h3>
+
+                    <ul>
+
+                        <li>Total Officers :
+                            <span id="sTotal">156</span>
+                        </li>
+
+                        <li>On Day Duty :
+                            <span id="sDay">84</span>
+                        </li>
+
+                        <li>On Night Duty :
+                            <span id="sNight">58</span>
+                        </li>
+
+                        <li>Leave :
+                            <span id="sLeave">14</span>
+                        </li>
+
+                        <li>Police Stations Covered :
+                            <span>08</span>
+                        </li>
+
+                        <li>Checking Points :
+                            <span>21</span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </section>
+
+            <!-- ================= TABLE START ================= -->
+
+            <section class="table-section">
+
+                <h2>
+
+                    <i class="fa-solid fa-table"></i>
+
+                    Today's Duty List
+
+                </h2>
+
+                <div class="table-responsive">
+
+                    <table id="rosterTable">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>S.No.</th>
+
+                                <th>Officer Name</th>
+
+                                <th>Rank</th>
+
+                                <th>Mobile</th>
+
+                                <th>Duty Location</th>
+
+                                <th>Shift</th>
+
+                                <th>Status</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="rosterBody">
+
+                            <<tr>
+                                <td>1</td>
+                                <td>Harendra Malik</td>
+                                <td>Inspector</td>
+                                <td>8006405098</td>
+                                <td>Police Station</td>
+                                <td><span class="day">Day</span></td>
+                                <td><span class="active">On Duty</span></td>
+                                <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>2</td>
+                                    <td>Ravindra Singh Kamboj</td>
+                                    <td>Inspector</td>
+                                    <td>9456829619</td>
+                                    <td>Investigation</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>3</td>
+                                    <td>Sarvan Gautam</td>
+                                    <td>Inspector</td>
+                                    <td>9411095639</td>
+                                    <td>Investigation</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>4</td>
+                                    <td>Sunil Kumar</td>
+                                    <td>Sub Inspector</td>
+                                    <td>9457626100</td>
+                                    <td>Checking</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>5</td>
+                                    <td>Kamveer Singh</td>
+                                    <td>Sub Inspector</td>
+                                    <td>9568288871</td>
+                                    <td>Verification</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>6</td>
+                                    <td>Naveen Chaudhary</td>
+                                    <td>Sub Inspector</td>
+                                    <td>9870621758</td>
+                                    <td>Surveillance</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>7</td>
+                                    <td>Rahul Singh</td>
+                                    <td>Sub Inspector</td>
+                                    <td>8941056853</td>
+                                    <td>Checking</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>8</td>
+                                    <td>Avinash Yadav</td>
+                                    <td>Sub Inspector</td>
+                                    <td>7985534745</td>
+                                    <td>CCTV Incharge</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>9</td>
+                                    <td>Preeti</td>
+                                    <td>Women SI</td>
+                                    <td>8057062066</td>
+                                    <td>Passport / IGRS</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>10</td>
+                                    <td>Karanpal Singh</td>
+                                    <td>Sub Inspector</td>
+                                    <td>8433099711</td>
+                                    <td>Summons</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>11</td>
+                                    <td>Nikhil Kumar</td>
+                                    <td>Constable</td>
+                                    <td>6396018037</td>
+                                    <td>Cheeta-1</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>12</td>
+                                    <td>Khursheed Alam</td>
+                                    <td>Constable</td>
+                                    <td>9756166321</td>
+                                    <td>Chowki Surveillance</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>13</td>
+                                    <td>Arun Kumar</td>
+                                    <td>Head Constable</td>
+                                    <td>8630033989</td>
+                                    <td>CERP Line</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>14</td>
+                                    <td>Shubham Baniyan</td>
+                                    <td>Constable</td>
+                                    <td>8126814929</td>
+                                    <td>Surveillance</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>15</td>
+                                    <td>Divyanshi Rani</td>
+                                    <td>Women Constable</td>
+                                    <td>7017191884</td>
+                                    <td>Help Desk</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>16</td>
+                                    <td>Devendra</td>
+                                    <td>Women Constable</td>
+                                    <td>8272005240</td>
+                                    <td>Masuri Underpass</td>
+                                    <td><span class="night">Night</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>17</td>
+                                    <td>Manisha Kumari</td>
+                                    <td>Women Constable</td>
+                                    <td>8439260839</td>
+                                    <td>Masuri Underpass</td>
+                                    <td><span class="night">Night</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>18</td>
+                                    <td>Babita</td>
+                                    <td>Women Constable</td>
+                                    <td>9528590800</td>
+                                    <td>Masuri Underpass</td>
+                                    <td><span class="night">Night</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>19</td>
+                                    <td>Vikram Pratap Singh</td>
+                                    <td>Constable</td>
+                                    <td>9368313902</td>
+                                    <td>Dak Assistant</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                                <tr>
+                                    <td>20</td>
+                                    <td>Yogesh</td>
+                                    <td>Constable</td>
+                                    <td>7248724019</td>
+                                    <td>Guard Duty</td>
+                                    <td><span class="day">Day</span></td>
+                                    <td><span class="active">On Duty</span></td>
+                                    <td><button class="viewBtn">View</button></td>
+                                </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="roster.js"></script>
+
+</body>
+
+</html>!-- PART 2 se start hoga -->

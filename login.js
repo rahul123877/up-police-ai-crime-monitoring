@@ -1,121 +1,196 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import {
-    getFirestore,
-    collection,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { auth } from "./firebase.js";
 
-// Firebase Config
-const firebaseConfig = {
-    apiKey: "AIzaSyC8aoQxs8QuweHroIsNSH9tL5DyTMa3JBg",
-    authDomain: "ai-crime-monitoring.firebaseapp.com",
-    projectId: "ai-crime-monitoring",
-    storageBucket: "ai-crime-monitoring.firebasestorage.app",
-    messagingSenderId: "1006416656939",
-    appId: "1:1006416656939:web:ea42ff5c576b3b60af486e"
+import {
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    sendPasswordResetEmail
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+
+
+// ================= SHOW PASSWORD =================
+
+window.togglePassword = function () {
+
+    const pass = document.getElementById("password");
+
+    const eye = document.querySelector(".eye-icon");
+
+    if (pass.type === "password") {
+
+        pass.type = "text";
+
+        eye.classList.remove("fa-eye");
+
+        eye.classList.add("fa-eye-slash");
+
+    } else {
+
+        pass.type = "password";
+
+        eye.classList.remove("fa-eye-slash");
+
+        eye.classList.add("fa-eye");
+
+    }
+
 };
 
-// Init Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
-document.addEventListener("DOMContentLoaded", () => {
 
-    const loginForm = document.getElementById("loginForm");
+// ================= LOGIN =================
 
-    if (!loginForm) return;
+window.login = async function () {
 
-    loginForm.addEventListener("submit", async (e) => {
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const btn =
+        document.getElementById("loginBtn");
+
+    const msg =
+        document.getElementById("loginMessage");
+
+    if (!email || !password) {
+
+        msg.style.color = "#ff5252";
+
+        msg.innerHTML = "Please enter email and password.";
+
+        return;
+
+    }
+
+    btn.disabled = true;
+
+    btn.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin"></i> Logging In...';
+
+    try {
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        msg.style.color = "#00ff99";
+
+        msg.innerHTML = "Login Successful...";
+
+        setTimeout(() => {
+
+            window.location.href = "admin.html";
+
+        }, 800);
+
+    }
+
+    catch (error) {
+
+        let text = "Login Failed";
+
+        switch (error.code) {
+
+            case "auth/user-not-found":
+                text = "User not found.";
+                break;
+
+            case "auth/wrong-password":
+                text = "Wrong password.";
+                break;
+
+            case "auth/invalid-email":
+                text = "Invalid email.";
+                break;
+
+            case "auth/invalid-credential":
+                text = "Invalid email or password.";
+                break;
+
+            case "auth/too-many-requests":
+                text = "Too many attempts. Try later.";
+                break;
+
+        }
+
+        msg.style.color = "#ff5252";
+
+        msg.innerHTML = text;
+
+    }
+
+    btn.disabled = false;
+
+    btn.innerHTML =
+        '<i class="fa-solid fa-right-to-bracket"></i> Login';
+
+};
+
+
+
+// ================= FORGOT PASSWORD =================
+
+document
+    .getElementById("forgotPassword")
+    .addEventListener("click", async function (e) {
+
         e.preventDefault();
 
-        const policeId = document.getElementById("policeId").value.trim();
-        const password = document.getElementById("password").value.trim();
+        const email =
+            document.getElementById("email").value.trim();
 
-        if (!policeId || !password) {
-            alert("Please fill all fields ❌");
+        if (!email) {
+
+            alert("Enter your email first.");
+
             return;
+
         }
 
         try {
-            const usersRef = collection(db, "policeUsers");
-            const snapshot = await getDocs(usersRef);
 
-            let isValid = false;
+            await sendPasswordResetEmail(auth, email);
 
-            snapshot.forEach((doc) => {
-                const data = doc.data();
+            alert("Password reset email sent.");
 
-                if (
-                    data.policeId === policeId &&
-                    data.password === password
-                ) {
-                    isValid = true;
-                }
-            });
-
-            if (isValid) {
-                alert("Login Successful 🚔");
-
-                localStorage.setItem("policeUser", policeId);
-
-                window.location.href = "dashboard.html";
-            } else {
-                alert("Invalid Police ID or Password ❌");
-            }
-
-        } catch (error) {
-            console.error("Login Error:", error);
-            alert("Something went wrong ⚠");
         }
+
+        catch (err) {
+
+            alert(err.message);
+
+        }
+
     });
+
+
+
+// ================= ENTER KEY =================
+
+document.addEventListener("keydown", function (e) {
+
+    if (e.key === "Enter") {
+
+        login();
+
+    }
 
 });
-import { db } from "./firebase.js";
-import { collection, query, where, getDocs }
-    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ================= LOGIN WITH policeUsers =================
-document.addEventListener("DOMContentLoaded", () => {
 
-    const loginForm = document.getElementById("loginForm");
 
-    if (!loginForm) return;
+// ================= AUTO LOGIN =================
 
-    loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+onAuthStateChanged(auth, (user) => {
 
-        const policeId = document.getElementById("policeId").value.trim();
-        const password = document.getElementById("password").value.trim();
+    if (user) {
 
-        try {
+        window.location.href = "admin.html";
 
-            const q = query(
-                collection(db, "policeUsers"),
-                where("policeId", "=RAHUL=", policeId),
-                where("password", "=1234=", password)
-            );
-
-            const querySnapshot = await getDocs(q);
-
-            if (!querySnapshot.empty) {
-
-                const userData = querySnapshot.docs[0].data();
-
-                // save session
-                localStorage.setItem("policeUser", JSON.stringify(userData));
-
-                alert("Login Successful 🚔");
-
-                window.location.href = "dashboard.html";
-
-            } else {
-                alert("Invalid Police ID or Password ❌");
-            }
-
-        } catch (error) {
-            console.error("Login Error:", error);
-        }
-
-    });
+    }
 
 });

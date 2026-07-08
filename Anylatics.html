@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UP Police AI | Crime Analytics Dashboard</title>
+
+    <link rel="stylesheet" href="reports.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <img src="images/logo.png">
+
+                <h2>UP Police AI</h2>
+
+                <p>Crime Monitoring</p>
+
+            </div>
+
+            <ul>
+
+                <li class="active">
+                    <a href="#">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Analytics
+                    </a>
+                </li>
+
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="crime-map.html">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        Crime Map
+                    </a>
+                </li>
+
+                <li>
+                    <a href="wanted.html">
+                        <i class="fa-solid fa-user-secret"></i>
+                        Most Wanted
+                    </a>
+                </li>
+
+                <li>
+                    <a href="roster.html">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        Duty Roster
+                    </a>
+                </li>
+
+                <li>
+                    <a href="ai.html">
+                        <i class="fa-solid fa-robot"></i>
+                        AI Assistant
+                    </a>
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <!-- ================= MAIN ================= -->
+
+        <div class="main">
+
+            <header>
+
+                <div>
+
+                    <h1>Crime Analytics Dashboard</h1>
+
+                    <p>AI Powered Crime Statistics & Reports</p>
+
+                </div>
+
+                <div class="header-right">
+
+                    <input type="text" placeholder="Search Crime...">
+
+                    <button>
+
+                        <i class="fa-solid fa-download"></i>
+
+                        Export
+
+                    </button>
+
+                    <button>
+
+                        <i class="fa-solid fa-print"></i>
+
+                        Print
+
+                    </button>
+
+                </div>
+
+            </header>
+
+            <!-- ================= FILTER ================= -->
+
+            <section class="filters">
+
+                <select>
+
+                    <option>All Districts</option>
+
+                    <option>Lucknow</option>
+
+                    <option>Ghaziabad</option>
+
+                    <option>Noida</option>
+
+                    <option>Kanpur</option>
+
+                    <option>Meerut</option>
+
+                </select>
+
+                <select>
+
+                    <option>All Crimes</option>
+
+                    <option>Theft</option>
+
+                    <option>Robbery</option>
+
+                    <option>Murder</option>
+
+                    <option>Cyber Crime</option>
+
+                    <option>Fraud</option>
+
+                </select>
+
+                <input type="date">
+
+                <button>
+
+                    <i class="fa-solid fa-filter"></i>
+
+                    Apply Filter
+
+                </button>
+
+            </section>
+
+            <!-- ================= STATS ================= -->
+
+            <section class="cards">
+
+                <div class="card blue">
+
+                    <i class="fa-solid fa-file-shield"></i>
+
+                    <h2 id="totalCrime">1523</h2>
+
+                    <p>Total Crimes</p>
+
+                </div>
+
+                <div class="card green">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <h2 id="solvedCases">1288</h2>
+
+                    <p>Solved Cases</p>
+
+                </div>
+
+                <div class="card orange">
+
+                    <i class="fa-solid fa-hourglass-half"></i>
+
+                    <h2 id="pendingCases">235</h2>
+
+                    <p>Pending Cases</p>
+
+                </div>
+
+                <div class="card red">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <h2 id="highRisk">54</h2>
+
+                    <p>High Risk Alerts</p>
+
+                </div>
+
+                <div class="card purple">
+
+                    <i class="fa-solid fa-chart-simple"></i>
+
+                    <h2 id="solveRate">84%</h2>
+
+                    <p>Solve Rate</p>
+
+                </div>
+
+            </section>
+
+            <!-- ================= CHART AREA START ================= -->
+
+            <section class="chart-grid">
+
+                <div class="chart-card">
+
+                    <h3>
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                        Crime Category Analysis
+
+                    </h3>
+
+                    <canvas id="crimeBarChart"></canvas>
+
+                </div>
+
+                <div class="chart-card">
+
+                    <h3>
+
+                        <i class="fa-solid fa-chart-pie"></i>
+
+                        Crime Distribution
+
+                    </h3>
+
+                    <canvas id="crimePieChart"></canvas>
+
+                </div>
+                <!-- ================= MONTHLY TREND ================= -->
+
+                <div class="chart-card">
+
+                    <h3>
+                        <i class="fa-solid fa-chart-line"></i>
+                        Monthly Crime Trend
+                    </h3>
+
+                    <canvas id="crimeLineChart"></canvas>
+
+                </div>
+
+                <!-- ================= POLICE PERFORMANCE ================= -->
+
+                <div class="chart-card">
+
+                    <h3>
+                        <i class="fa-solid fa-user-shield"></i>
+                        Police Performance
+                    </h3>
+
+                    <canvas id="performanceChart"></canvas>
+
+                </div>
+
+            </section>
+
+            <!-- ================= RECENT ACTIVITY ================= -->
+
+            <section class="activity-section">
+
+                <div class="activity-card">
+
+                    <h3>
+
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+
+                        Recent Activities
+
+                    </h3>
+
+                    <ul class="activity-list">
+
+                        <li>
+
+                            <span class="success"></span>
+
+                            Cyber Crime case solved at Ghaziabad
+
+                            <small>10 min ago</small>
+
+                        </li>
+
+                        <li>
+
+                            <span class="warning"></span>
+
+                            New FIR registered at Noida Sector-20
+
+                            <small>18 min ago</small>
+
+                        </li>
+
+                        <li>
+
+                            <span class="danger"></span>
+
+                            High Risk Alert generated in Lucknow
+
+                            <small>32 min ago</small>
+
+                        </li>
+
+                        <li>
+
+                            <span class="info"></span>
+
+                            Wanted Criminal Arrested
+
+                            <small>1 Hour ago</small>
+
+                        </li>
+
+                        <li>
+
+                            <span class="success"></span>
+
+                            Patrolling Team Completed Route
+
+                            <small>2 Hours ago</small>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="activity-card">
+
+                    <h3>
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        Top Crime Hotspots
+
+                    </h3>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>District</th>
+
+                                <th>Cases</th>
+
+                                <th>Risk</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>Ghaziabad</td>
+
+                                <td>234</td>
+
+                                <td><span class="risk high">High</span></td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>Lucknow</td>
+
+                                <td>198</td>
+
+                                <td><span class="risk medium">Medium</span></td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>Noida</td>
+
+                                <td>186</td>
+
+                                <td><span class="risk high">High</span></td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>Kanpur</td>
+
+                                <td>140</td>
+
+                                <td><span class="risk low">Low</span></td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>Meerut</td>
+
+                                <td>121</td>
+
+                                <td><span class="risk medium">Medium</span></td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <!-- ================= RECENT FIR TABLE ================= -->
+
+            <section class="table-card">
+
+                <h3>
+
+                    <i class="fa-solid fa-table"></i>
+
+                    Latest Crime Reports
+
+                </h3>
+
+                <table class="crime-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>FIR No.</th>
+
+                            <th>Crime</th>
+
+                            <th>District</th>
+
+                            <th>Status</th>
+
+                            <th>Officer</th>
+
+                            <th>Date</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>FIR-2026-101</td>
+
+                            <td>Cyber Fraud</td>
+
+                            <td>Ghaziabad</td>
+
+                            <td><span class="badge solved">Solved</span></td>
+
+                            <td>Inspector Sharma</td>
+
+                            <td>07 Jul 2026</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>FIR-2026-102</td>
+
+                            <td>Robbery</td>
+
+                            <td>Noida</td>
+
+                            <td><span class="badge pending">Pending</span></td>
+
+                            <td>SI Verma</td>
+
+                            <td>07 Jul 2026</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>FIR-2026-103</td>
+
+                            <td>Theft</td>
+
+                            <td>Lucknow</td>
+
+                            <td><span class="badge solved">Solved</span></td>
+
+                            <td>Inspector Singh</td>
+
+                            <td>06 Jul 2026</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>FIR-2026-104</td>
+
+                            <td>Murder</td>
+
+                            <td>Meerut</td>
+
+                            <td><span class="badge investigating">Investigation</span></td>
+
+                            <td>SI Khan</td>
+
+                            <td>06 Jul 2026</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>FIR-2026-105</td>
+
+                            <td>Fraud</td>
+
+                            <td>Kanpur</td>
+
+                            <td><span class="badge pending">Pending</span></td>
+
+                            <td>Inspector Yadav</td>
+
+                            <td>05 Jul 2026</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </section>
+
+            <!-- ================= FOOTER ================= -->
+
+            <footer>
+
+                <p>
+
+                    © 2026 UP Police AI Crime Monitoring System |
+                    Crime Analytics Dashboard
+
+                </p>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+    <script src="reports.js"></script>
+
+</body>
+
+</html>
