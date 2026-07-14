@@ -388,7 +388,7 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="admin-login.html">Login</a></li>
 
         </ul>
     </nav>
@@ -453,6 +453,7 @@
                     <h3 id="pendingCases">0</h3>
                     <p>Pending Cases</p>
                 </div>
+
                 <div class="stat-box">
                     <i class="fa-solid fa-bell"></i>
                     <h3 id="alertsCount">0</h3>
@@ -524,7 +525,32 @@
                     <div class="cctv-overlay-text">CAM 04 • Sector-21 • Status: Normal</div>
                 </div>
             </div>
+            <!-- ================= LIVE SOS ALERT ================= -->
 
+            <div class="widget-box sos-widget">
+
+                <h3 class="widget-title">
+                    <span>
+                        <i class="fa-solid fa-triangle-exclamation" style="color:red;"></i>
+                        Live SOS Alerts
+                    </span>
+
+                    <span class="live-dot"></span>
+                </h3>
+
+                <div id="miniSOSContainer">
+
+                    <div class="mini-sos-card">
+
+                        <h4>✅ No Active SOS</h4>
+
+                        <p>Waiting for emergency requests...</p>
+
+                    </div>
+
+                </div>
+
+            </div>
             <div class="widget-box">
                 <h3 class="widget-title"><i class="fa-solid fa-triangle-exclamation" style="color:#ff3333;"></i> Latest
                     AI Alerts</h3>
@@ -600,10 +626,10 @@
 
         // Trigger Animation on load
         document.addEventListener("DOMContentLoaded", () => {
-            animateValue("crimeCount", 0, 1425, 2000);
-            animateValue("solvedCases", 0, 980, 2000);
-            animateValue("pendingCases", 0, 445, 2000);
-            animateValue("alertsCount", 0, 34, 2000);
+            animateValue("crimeCount", 0, 004, 2000);
+            animateValue("solvedCases", 0, 006, 2000);
+            animateValue("pendingCases", 0, 008, 2000);
+            animateValue("alertsCount", 0, 0010, 2000);
         });
     </script>
     <script src="app.js"></script>

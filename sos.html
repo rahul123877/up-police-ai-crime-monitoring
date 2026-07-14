@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency SOS | AI Crime Monitoring System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+</head>
+
+<body>
+
+    <header class="sos-header">
+        <a href="dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+        <h1><i class="fa-solid fa-triangle-exclamation"></i> Emergency SOS</h1>
+    </header>
+
+    <main class="sos-container">
+        <!-- LEFT SIDE: Form & Info -->
+        <section class="sos-left">
+            <div class="warning-card">
+                <div class="warning-icon"><i class="fa-solid fa-bell"></i></div>
+                <h2>Emergency Assistance</h2>
+                <p>Press the SOS button only during a real emergency. Your live GPS location and nearest police station
+                    details will be shared instantly.</p>
+            </div>
+
+            <div class="user-card">
+                <h3><i class="fa-solid fa-user"></i> Your Details</h3>
+                <input type="text" id="username" placeholder="Your Name" required>
+                <input type="text" id="phone" placeholder="Mobile Number" required>
+                <textarea id="message" rows="3" placeholder="Describe emergency (optional)"></textarea>
+            </div>
+        </section>
+
+        <!-- RIGHT SIDE: Live Status & Map -->
+        <section class="sos-right">
+            <div class="location-card">
+                <h3><i class="fa-solid fa-location-dot"></i> Live Detection Status</h3>
+                <div class="location-box">
+                    <p><strong><i class="fa-solid fa-map-pin"></i> Live Address:</strong> <span
+                            id="liveAddress">Detecting current coordinates...</span></p>
+                    <p><strong><i class="fa-solid fa-shield-halved"></i> Nearest Station:</strong> <span
+                            id="nearestStation" style="color: #ff5252; font-weight: bold;">Calculating...</span></p>
+                    <p><strong><i class="fa-solid fa-route"></i> Distance:</strong> <span id="stationDistance">--
+                            km</span></p>
+                    <p><strong>Status:</strong> <span id="gpsStatus">GPS Initializing...</span></p>
+                </div>
+                <button id="getLocationBtn" class="location-btn"><i class="fa-solid fa-location-crosshairs"></i>
+                    Recalibrate Location</button>
+            </div>
+
+            <div class="sos-card">
+                <button id="sosBtn" class="sos-button">🚨 SEND SOS</button>
+                <p>Clicking will immediately trigger a red alert card on the Home Page Dashboard.</p>
+            </div>
+
+            <div class="map-card">
+                <h3><i class="fa-solid fa-map-location-dot"></i> Emergency Live Map</h3>
+                <div id="map"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Overlay Loaders -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loader"></div>
+        <p>Routing to Nearest Police Station...</p>
+    </div>
+
+    <div id="successPopup" class="success-popup">
+        <i class="fa-solid fa-circle-check"></i>
+        <h2>SOS Sent Successfully</h2>
+        <p id="stationAssigned">Assigned to Nearest Station</p>
+    </div>
+
+    <!-- Leaflet JS & Logic -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script type="module" src="sos.js"></script>
+</body>
+
+</html>

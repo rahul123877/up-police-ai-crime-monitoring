@@ -3412,3 +3412,434 @@ Jo
             font-weight: bold;
 
         }
+
+        /* =====================================================
+   SOS EMERGENCY PAGE
+===================================================== */
+
+        .sos-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: #09101d;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .35);
+            z-index: 999;
+        }
+
+        .sos-header h1 {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: white;
+            background: #1976d2;
+            padding: 10px 18px;
+            border-radius: 8px;
+            transition: .3s;
+        }
+
+        .back-btn:hover {
+            background: #1565c0;
+        }
+
+        .sos-container {
+            margin-top: 90px;
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 25px;
+            padding: 30px;
+        }
+
+        .warning-card,
+        .user-card,
+        .location-card,
+        .sos-card,
+        .map-card {
+            background: #111c2d;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
+        }
+
+        .warning-card {
+            border-left: 6px solid red;
+        }
+
+        .warning-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: red;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 42px;
+            margin: auto;
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 rgba(255, 0, 0, .6);
+            }
+
+            50% {
+                transform: scale(1.08);
+                box-shadow: 0 0 25px rgba(255, 0, 0, .9);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 rgba(255, 0, 0, .6);
+            }
+
+        }
+
+        .warning-card h2 {
+            color: #fff;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .warning-card p {
+            color: #b8c7d9;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .user-card h3,
+        .location-card h3,
+        .map-card h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .user-card input,
+        .user-card textarea {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: #1b2940;
+            color: white;
+            outline: none;
+        }
+
+        .location-box {
+            background: #0e1727;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .location-box p {
+            color: white;
+            margin: 12px 0;
+        }
+
+        .location-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background: #0091ea;
+            color: white;
+            border-radius: 10px;
+            font-size: 17px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .location-btn:hover {
+            background: #0277bd;
+        }
+
+        .sos-card {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .sos-button {
+            width: 240px;
+            height: 240px;
+            border: none;
+            border-radius: 50%;
+            background: red;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            animation: sosBlink 1s infinite;
+            box-shadow: 0 0 40px rgba(255, 0, 0, .7);
+        }
+
+        @keyframes sosBlink {
+
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+
+        }
+
+        .sos-card p {
+            color: #cfd8dc;
+            margin-top: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 420px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 99999;
+        }
+
+        .loader {
+            width: 70px;
+            height: 70px;
+            border: 8px solid #eee;
+            border-top: 8px solid red;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+
+            100% {
+                transform: rotate(360deg);
+            }
+
+        }
+
+        .loading-overlay p {
+            color: white;
+            margin-top: 20px;
+            font-size: 22px;
+        }
+
+        .success-popup {
+            position: fixed;
+            right: 35px;
+            bottom: 35px;
+            background: #1b5e20;
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            display: none;
+            z-index: 999999;
+            width: 340px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
+        }
+
+        .success-popup i {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .success-popup h2 {
+            margin-bottom: 10px;
+        }
+
+        @media(max-width:900px) {
+
+            .sos-container {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .sos-button {
+
+                width: 190px;
+                height: 190px;
+                font-size: 25px;
+
+            }
+
+            #map {
+
+                height: 320px;
+
+            }
+
+            /* ===== MINI SOS WIDGET ===== */
+
+            .sos-widget {
+                border: 1px solid #ff3b3b;
+            }
+
+            .mini-sos-card {
+
+                background: #1a1a1a;
+
+                border-left: 5px solid red;
+
+                padding: 12px;
+
+                border-radius: 8px;
+
+                margin-top: 10px;
+
+            }
+
+            .mini-sos-card h4 {
+
+                color: #ff4444;
+
+                margin-bottom: 8px;
+
+            }
+
+            .mini-sos-card p {
+
+                color: #ddd;
+
+                font-size: 13px;
+
+                margin: 5px 0;
+
+            }
+
+            .mini-sos-buttons {
+
+                display: flex;
+
+                gap: 8px;
+
+                margin-top: 10px;
+
+            }
+
+            .mini-sos-buttons a,
+            .mini-sos-buttons button {
+
+                flex: 1;
+
+                padding: 8px;
+
+                border: none;
+
+                border-radius: 6px;
+
+                cursor: pointer;
+
+                text-align: center;
+
+                text-decoration: none;
+
+                font-size: 12px;
+
+            }
+
+            .track-btn {
+
+                background: #1976d2;
+
+                color: white;
+
+            }
+
+            .accept-btn {
+
+                background: #2e7d32;
+
+                color: white;
+
+            }
+
+            .live-sos-wrapper {
+                margin: 20px 0;
+                width: 100%;
+            }
+
+            .live-sos-card {
+                background: #2c0e12;
+                border: 2px solid #ff3344;
+                border-radius: 12px;
+                padding: 20px;
+                margin-bottom: 15px;
+                box-shadow: 0 0 15px rgba(255, 51, 68, 0.3);
+            }
+
+            .sos-card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                color: #ff3344;
+                font-weight: bold;
+                border-bottom: 1px solid rgba(255, 51, 68, 0.2);
+                padding-bottom: 8px;
+                margin-bottom: 12px;
+            }
+
+            .pulse-dot {
+                width: 12px;
+                height: 12px;
+                background: #ff3344;
+                border-radius: 50%;
+                animation: dotPulse 1s infinite;
+            }
+
+            @keyframes dotPulse {
+                0% {
+                    transform: scale(0.9);
+                    opacity: 0.7;
+                }
+
+                50% {
+                    transform: scale(1.2);
+                    opacity: 1;
+                    box-shadow: 0 0 10px #ff3344;
+                }
+
+                100% {
+                    transform: scale(0.9);
+                    opacity: 0.7;
+                }
+            }
+
+            .map-link-btn {
+                display: inline-block;
+                margin-top: 12px;
+                background: #ff3344;
+                color: #fff;
+                padding: 8px 15px;
+                border-radius: 6px;
+                text-decoration: none;
+                font-size: 14px;
+                transition: 0.2s;
+            }
+
+            .map-link-btn:hover {
+                background: #cc1122;
+            }

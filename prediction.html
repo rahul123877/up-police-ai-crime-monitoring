@@ -2,8 +2,10 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>AI Crime Prediction | UP Police</title>
 
     <link rel="stylesheet" href="styles.css">
@@ -15,9 +17,10 @@
 
 </head>
 
+
 <body>
 
-    <!-- Background Animation -->
+
     <div class="bg-animation">
         <span></span>
         <span></span>
@@ -26,50 +29,85 @@
         <span></span>
     </div>
 
-    <!-- Header -->
+
+
     <header class="prediction-header">
+
 
         <div class="logo-box">
 
+
             <img src="images/up-police-logo.png" alt="UP Police">
+
 
             <div>
 
-                <h1>AI Crime Prediction System</h1>
+                <h1>
+                    AI Crime Prediction System
+                </h1>
 
-                <p>Uttar Pradesh Police | Artificial Intelligence Dashboard</p>
+                <p>
+                    Uttar Pradesh Police | Artificial Intelligence Dashboard
+                </p>
+
 
             </div>
 
+
         </div>
 
+
+
         <a href="dashboard.html" class="back-btn">
-            <i class="fa-solid fa-arrow-left"></i> Dashboard
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Dashboard
+
         </a>
+
 
     </header>
 
-    <!-- Main -->
+
+
+
+
     <section class="prediction-section">
 
-        <!-- Left Panel -->
+
+
         <div class="prediction-form">
 
+
             <h2>
+
                 <i class="fa-solid fa-brain"></i>
+
                 AI Prediction Input
+
             </h2>
+
+
+
+
 
             <div class="input-group">
 
                 <label>
+
                     <i class="fa-solid fa-location-dot"></i>
+
                     Select District
+
                 </label>
+
 
                 <select id="district">
 
-                    <option value="">Choose District</option>
+
+                    <option value="">
+                        Choose District
+                    </option>
 
                     <option>Lucknow</option>
                     <option>Kanpur Nagar</option>
@@ -87,20 +125,36 @@
                     <option>Moradabad</option>
                     <option>Saharanpur</option>
 
+
                 </select>
+
 
             </div>
 
+
+
+
+
             <div class="input-group">
 
+
                 <label>
+
                     <i class="fa-solid fa-shield-halved"></i>
+
                     Crime Type
+
                 </label>
+
+
 
                 <select id="crime">
 
-                    <option value="">Select Crime</option>
+
+                    <option value="">
+                        Select Crime
+                    </option>
+
 
                     <option>Theft</option>
                     <option>Vehicle Theft</option>
@@ -113,349 +167,126 @@
                     <option>Assault</option>
                     <option>Drug Crime</option>
 
+
                 </select>
+
+
 
             </div>
 
+
+
+
+
+
             <div class="input-group">
 
+
                 <label>
+
                     <i class="fa-solid fa-calendar-days"></i>
+
                     Prediction Date
+
                 </label>
+
 
                 <input type="date" id="crimeDate">
 
+
             </div>
+
+
+
+
 
             <div class="input-group">
 
+
                 <label>
+
                     <i class="fa-solid fa-clock"></i>
+
                     Time Slot
+
                 </label>
+
 
                 <select id="time">
 
-                    <option>Morning (6 AM - 12 PM)</option>
 
-                    <option>Afternoon (12 PM - 4 PM)</option>
+                    <option>
+                        Morning (6 AM - 12 PM)
+                    </option>
 
-                    <option>Evening (4 PM - 8 PM)</option>
 
-                    <option>Night (8 PM - 6 AM)</option>
+                    <option>
+                        Afternoon (12 PM - 4 PM)
+                    </option>
+
+
+                    <option>
+                        Evening (4 PM - 8 PM)
+                    </option>
+
+
+                    <option>
+                        Night (8 PM - 6 AM)
+                    </option>
+
 
                 </select>
 
+
             </div>
+
+
+
+
 
             <div class="input-group">
 
+
                 <label>
+
                     <i class="fa-solid fa-cloud-sun"></i>
+
                     Weather
+
                 </label>
 
+
+
                 <select id="weather">
+
 
                     <option>Sunny</option>
                     <option>Cloudy</option>
                     <option>Rainy</option>
                     <option>Fog</option>
 
+
                 </select>
+
 
             </div>
 
+
+
+
+
+
             <button class="predict-btn" onclick="predictCrime()">
+
 
                 <i class="fa-solid fa-microchip"></i>
 
                 Predict Crime Risk
 
+
             </button>
 
-        </div>
 
-        <!-- Right Panel -->
-        <div class="prediction-result">
 
-            <h2>
-
-                <i class="fa-solid fa-chart-line"></i>
-
-                AI Prediction Result
-
-            </h2>
-
-            <div class="result-card">
-
-                <div class="risk-circle">
-
-                    <span id="riskPercent">0%</span>
-
-                </div>
-
-                <h3 id="riskLevel">
-                    Waiting for Prediction...
-                </h3>
-
-                <p id="aiMessage">
-                    Select district, crime type and date to generate AI prediction.
-                </p>
-
-            </div>
-            <!-- AI Analysis Cards -->
-            <div class="analysis-grid">
-
-                <div class="analysis-card">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <h4>Risk Level</h4>
-                    <p id="riskText">--</p>
-                </div>
-
-                <div class="analysis-card">
-                    <i class="fa-solid fa-chart-pie"></i>
-                    <h4>AI Confidence</h4>
-                    <p id="confidence">0%</p>
-                </div>
-
-                <div class="analysis-card">
-                    <i class="fa-solid fa-location-crosshairs"></i>
-                    <h4>Hotspot Zone</h4>
-                    <p id="hotspot">Waiting...</p>
-                </div>
-
-                <div class="analysis-card">
-                    <i class="fa-solid fa-clock"></i>
-                    <h4>Peak Time</h4>
-                    <p id="peakTime">--</p>
-                </div>
-
-            </div>
-
-            <!-- Risk Progress -->
-            <div class="prediction-box">
-
-                <h3>
-                    <i class="fa-solid fa-gauge-high"></i>
-                    AI Risk Meter
-                </h3>
-
-                <div class="progress">
-
-                    <div class="progress-bar" id="progressBar"></div>
-
-                </div>
-
-                <div class="progress-text">
-                    <span>Low</span>
-                    <span>Medium</span>
-                    <span>High</span>
-                </div>
-
-            </div>
-
-            <!-- Police Recommendation -->
-            <div class="recommend-box">
-
-                <h3>
-                    <i class="fa-solid fa-user-shield"></i>
-                    Police Recommendation
-                </h3>
-
-                <ul id="recommendation">
-
-                    <li>Waiting for AI prediction...</li>
-
-                </ul>
-
-            </div>
-
-            <!-- Prediction Summary -->
-            <div class="summary-box">
-
-                <h3>
-                    <i class="fa-solid fa-file-waveform"></i>
-                    Prediction Summary
-                </h3>
-
-                <table>
-
-                    <tr>
-                        <td>District</td>
-                        <td id="summaryDistrict">-</td>
-                    </tr>
-
-                    <tr>
-                        <td>Crime Type</td>
-                        <td id="summaryCrime">-</td>
-                    </tr>
-
-                    <tr>
-                        <td>Date</td>
-                        <td id="summaryDate">-</td>
-                    </tr>
-
-                    <tr>
-                        <td>Time</td>
-                        <td id="summaryTime">-</td>
-                    </tr>
-
-                    <tr>
-                        <td>Weather</td>
-                        <td id="summaryWeather">-</td>
-                    </tr>
-
-                    <tr>
-                        <td>Risk Score</td>
-                        <td id="summaryScore">0%</td>
-                    </tr>
-
-                </table>
-
-            </div>
-
-            <!-- Last Predictions -->
-            <div class="history-box">
-
-                <h3>
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                    Recent Predictions
-                </h3>
-
-                <table class="history-table">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Date</th>
-                            <th>District</th>
-                            <th>Crime</th>
-                            <th>Risk</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody id="historyTable">
-
-                        <tr>
-
-                            <td colspan="4" style="text-align:center;">
-                                No Prediction Yet
-                            </td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
 
         </div>
-
-    </section>
-    <!-- AI Status Bar -->
-    <section class="status-section">
-
-        <div class="status-card">
-
-            <i class="fa-solid fa-robot"></i>
-
-            <div>
-
-                <h4>AI Engine</h4>
-
-                <p id="aiStatus">Online</p>
-
-            </div>
-
-        </div>
-
-        <div class="status-card">
-
-            <i class="fa-solid fa-satellite-dish"></i>
-
-            <div>
-
-                <h4>Prediction Status</h4>
-
-                <p id="predictionStatus">Waiting...</p>
-
-            </div>
-
-        </div>
-
-        <div class="status-card">
-
-            <i class="fa-solid fa-calendar-days"></i>
-
-            <div>
-
-                <h4>Current Date</h4>
-
-                <p id="currentDate"></p>
-
-            </div>
-
-        </div>
-
-        <div class="status-card">
-
-            <i class="fa-solid fa-clock"></i>
-
-            <div>
-
-                <h4>Current Time</h4>
-
-                <p id="currentTime"></p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-
-        <p>
-            © 2026 AI Crime Prediction System |
-            Uttar Pradesh Police |
-            Artificial Intelligence & Crime Analytics
-        </p>
-
-    </footer>
-
-    <!-- Live Date & Time -->
-
-    <script>
-
-        function updateClock() {
-
-            const now = new Date();
-
-            document.getElementById("currentDate").innerHTML =
-                now.toLocaleDateString();
-
-            document.getElementById("currentTime").innerHTML =
-                now.toLocaleTimeString();
-
-        }
-
-        setInterval(updateClock, 1000);
-
-        updateClock();
-
-    </script>
-
-    <!-- AI Prediction JS -->
-
-    <script src="app.js"></script>
-
-</body>
-
-</html>

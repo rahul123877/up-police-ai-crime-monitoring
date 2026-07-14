@@ -215,46 +215,9 @@ function liveSearch() {
     let table = document.querySelector("table");
     let tr = table.getElementsByTagName("tr");
 
-    for (let i = 1; i < tr.length; i++) {
-        let text = tr[i].innerText.toLowerCase();
+    crimeForm.reset();
 
-        if (text.includes(input)) {
-            tr[i].style.display = "";
-        } else {
-            tr[i].style.display = "none";
-        }
-    }
-}
-import { db } from "./firebase.js";
-import {
-    collection,
-    addDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-const crimeForm = document.getElementById("crimeForm");
-
-if (crimeForm) {
-
-    crimeForm.addEventListener("submit", async (e) => {
-
-        e.preventDefault();
-
-        const name = document.getElementById("name").value;
-        const crime = document.getElementById("crimeType").value;
-        const location = document.getElementById("location").value;
-
-        await addDoc(collection(db, "reports"), {
-            name,
-            crime,
-            location,
-            time: new Date()
-        });
-
-        alert("Report Submitted");
-
-        crimeForm.reset();
-
-    });
+});
 
 }
 function predictCrime() {
@@ -350,92 +313,6 @@ function predictCrime() {
     `;
 
     }
-
-    // Update UI
-
-    document.getElementById("riskPercent").innerHTML = risk + "%";
-
-    document.getElementById("riskLevel").innerHTML = level;
-
-    document.getElementById("riskLevel").style.color = color;
-
-    document.getElementById("riskText").innerHTML = level;
-
-    document.getElementById("confidence").innerHTML =
-        (90 + Math.floor(Math.random() * 10)) + "%";
-
-    document.getElementById("hotspot").innerHTML =
-        district + " City Area";
-
-    document.getElementById("peakTime").innerHTML =
-        time;
-
-    document.getElementById("recommendation").innerHTML =
-        recommendation;
-
-    document.getElementById("progressBar").style.width =
-        risk + "%";
-
-    document.getElementById("progressBar").style.background =
-        color;
-
-    document.getElementById("summaryDistrict").innerHTML =
-        district;
-
-    document.getElementById("summaryCrime").innerHTML =
-        crime;
-
-    document.getElementById("summaryDate").innerHTML =
-        date;
-
-    document.getElementById("summaryTime").innerHTML =
-        time;
-
-    document.getElementById("summaryWeather").innerHTML =
-        weather;
-
-    document.getElementById("summaryScore").innerHTML =
-        risk + "%";
-
-    document.getElementById("predictionStatus").innerHTML =
-        "Prediction Completed";
-
-    document.getElementById("aiStatus").innerHTML =
-        "AI Analysis Successful";
-
-    document.getElementById("aiMessage").innerHTML =
-        `AI predicts < strong > ${ level }</strong > in <strong>${district}</strong> for <strong>${crime}</strong>.`;
-
-    // Prediction History
-
-    const table = document.getElementById("historyTable");
-
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
-        < td > ${ date }</td >
-        <td>${district}</td>
-        <td>${crime}</td>
-        <td style="color:${color};font-weight:bold;">
-            ${risk}%
-        </td>
-    `;
-
-    if (table.children.length == 1 &&
-        table.children[0].innerText.includes("No Prediction")) {
-
-        table.innerHTML = "";
-
-    }
-
-    table.prepend(row);
-
-}
-
-// ===============================
-// Live Date & Time
-// ===============================
-
 function updateClock() {
 
     const now = new Date();
@@ -611,34 +488,6 @@ import {
     updateDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 import { storage } from "./firebase.js";
-
-import {
-    ref,
-    uploadBytes,
-    getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
-const criminalList = document.getElementById("criminalList");
-
-if (criminalList) {
-
-    onSnapshot(collection(db, "criminals"), (snapshot) => {
-
-        criminalList.innerHTML = "";
-
-        snapshot.forEach((doc) => {
-
-            let data = doc.data();
-
-            criminalList.innerHTML += `
-        < div class="suspect-card" >
-            <img src="${data.image}">
-                <h2>${data.name}</h2>
-                <p>${data.crime}</p>
-            </div>
-    `;
-
-        });
-
     });
 
 }
@@ -1340,6 +1189,80 @@ function updateCaseStatus(id, status) {
         row.innerHTML = status;
 
     }
+    <script src="app.js"></script>
+    // ===============================
+    // LIVE SOS WIDGET
+    // ===============================
 
+    const miniSOSContainer = document.getElementById("miniSOSContainer");
 
-}
+    if (miniSOSContainer) {
+
+        const q = query(
+            collection(db, "SOS"),
+            where("status", "==", "ACTIVE")
+        );
+
+        onSnapshot(q, (snapshot) => {
+
+            if (snapshot.empty) {
+
+                miniSOSContainer.innerHTML = `
+                <div class="mini-sos-card">
+                    <h4 style="color:#00ff88;">
+                        ✅ No Active SOS
+                    </h4>
+
+                    <p>
+                        Waiting for emergency requests...
+                    </p>
+                </div>
+            `;
+
+                return;
+            }
+
+            miniSOSContainer.innerHTML = "";
+
+            snapshot.forEach((doc) => {
+
+                const data = doc.data();
+
+                miniSOSContainer.innerHTML += `
+
+            <div class="mini-sos-card">
+
+                <h4>
+                    🚨 ${data.name}
+                </h4>
+
+                <p>
+                    📞 ${data.phone}
+                </p>
+
+                <p>
+                    📍 Emergency Active
+                </p>
+
+                <div class="mini-sos-buttons">
+
+                    <a
+                        href="${data.googleMap}"
+                        target="_blank"
+                        class="track-btn">
+
+                        Track
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            `;
+
+            });
+
+        });
+
+    }
