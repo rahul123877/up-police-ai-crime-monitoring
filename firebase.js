@@ -13,9 +13,7 @@ import {
     addDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-import {
-    getAuth
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 import {
     getStorage,
@@ -36,7 +34,7 @@ const firebaseConfig = {
     measurementId: "G-8J2VBLW3LX"
 };
 
-/* ---------------- INIT APP ---------------- */
+/* ---------------- INITIALIZE APP ---------------- */
 
 const app = initializeApp(firebaseConfig);
 
@@ -67,15 +65,20 @@ const deleteReport = async (id) => {
 };
 
 const updateStatus = async (id, status) => {
-    return await updateDoc(doc(db, "reports", id), { status });
+    return await updateDoc(doc(db, "reports", id), {
+        status
+    });
 };
 
 const getUsers = async () => {
     const snap = await getDocs(usersRef);
-    return snap.docs.map(doc => doc.data());
+    return snap.docs.map((d) => ({
+        id: d.id,
+        ...d.data()
+    }));
 };
 
-/* ---------------- STORAGE UPLOAD ---------------- */
+/* ---------------- STORAGE ---------------- */
 
 const uploadFile = async (file, path) => {
     const fileRef = ref(storage, path);
@@ -83,9 +86,10 @@ const uploadFile = async (file, path) => {
     return await getDownloadURL(fileRef);
 };
 
-/* ---------------- EXPORT EVERYTHING ---------------- */
+/* ---------------- EXPORT ---------------- */
 
 export {
+    app,
     db,
     auth,
     storage,
@@ -98,14 +102,3 @@ export {
     getUsers,
     uploadFile
 };
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-const firebaseConfig = {
-    // your config
-};
-
-const app = initializeApp(firebaseConfig);
-
-export const db = getFirestore(app);
